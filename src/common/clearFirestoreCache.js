@@ -1,4 +1,3 @@
-
 const clearFirestoreCache = () => {
   try {
     //this -> globalThis
