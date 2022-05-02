@@ -5,24 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.firebase/hosting.cHVibGlj.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firebase.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firestore.rules" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/clearFirestoreCache.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/clearFirestoreCache.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/firebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavPanel/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavPanel/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AuthLayout/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AuthLayout/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/LoadingPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LoadingPage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/theme/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme/theme.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,12 +32,16 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="28c95SSDEn6wLalNs2MRaAkiJGy" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -86,7 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1651504836297</updated>
       <workItem from="1651504843846" duration="5185000" />
-      <workItem from="1651521270183" duration="7931000" />
+      <workItem from="1651521270183" duration="9049000" />
     </task>
     <servers />
   </component>
@@ -103,6 +93,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
