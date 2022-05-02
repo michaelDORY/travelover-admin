@@ -3,18 +3,26 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ThemeProvider } from '@mui/material';
+import {ThemeProvider} from '@mui/material';
 import theme from './theme/theme';
+import {BrowserRouter} from 'react-router-dom';
+import {FirebaseAppProvider} from 'reactfire';
+import firebaseConfig from './common/firebaseConfig';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root')
+    document.getElementById('root')
 );
+
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+                <ThemeProvider theme={theme}>
+                    <BrowserRouter>
+                        <App/>
+                    </BrowserRouter>
+                </ThemeProvider>
+        </FirebaseAppProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
