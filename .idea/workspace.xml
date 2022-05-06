@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavPanel/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavPanel/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavPanel/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavPanel/style.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +78,7 @@
       <workItem from="1651504843846" duration="5185000" />
       <workItem from="1651521270183" duration="9363000" />
       <workItem from="1651530961185" duration="403000" />
+      <workItem from="1651842530334" duration="3729000" />
     </task>
     <servers />
   </component>
