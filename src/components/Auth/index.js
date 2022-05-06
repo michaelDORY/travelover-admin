@@ -48,7 +48,6 @@ function Auth() {
             label="Email"
             name="email"
             id="email"
-            focused
             variant="standard"
             value={formik.values.email}
             onChange={formik.handleChange}
@@ -61,7 +60,6 @@ function Auth() {
             autoComplete="off"
             name="password"
             id="password"
-            focused
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}

@@ -20,13 +20,14 @@ const theme = createTheme({
     primary: {
       main: '#F6FF8A',
     },
+    mode: 'dark',
   },
   components: {
     MuiTextField: {
       defaultProps: {
         InputProps: {
           sx: {
-            color: '#fff',
+            // color: '#fff',
           },
         },
       },

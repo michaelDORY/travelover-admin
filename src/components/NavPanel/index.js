@@ -1,11 +1,12 @@
 import React from 'react';
 import style from './style.module.css';
-import {Box, Button, Container, Paper, Stack} from '@mui/material';
-import {ReactComponent as Logo} from '../../assets/icons/logo-yellow.svg';
-import {auth} from '../../common/firebase';
-import {signOut} from 'firebase/auth';
+import { Box, Button, Container, Paper, Stack } from '@mui/material';
+import { ReactComponent as Logo } from '../../assets/icons/logo-yellow.svg';
+import { auth } from '../../common/firebase';
+import { signOut } from 'firebase/auth';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+import { Link } from 'react-router-dom';
 
 function NavPanel() {
   const logout = () => {
@@ -13,18 +14,33 @@ function NavPanel() {
   };
 
   const btnData = [
-    {id: 1, title: 'Statistics', icon: <AssessmentIcon/>},
-    {id: 2, title: 'Add quiz', icon: <AssessmentIcon/>},
-    {id: 3, title: 'Manage comments', icon: <AssessmentIcon/>},
-    {id: 4, title: 'Add place', icon: <AssessmentIcon/>},
+    {
+      id: 1,
+      title: 'Statistics',
+      icon: <AssessmentIcon />,
+      path: '/statistics',
+    },
+    { id: 2, title: 'Add quiz', icon: <AssessmentIcon />, path: '/add-quiz' },
+    {
+      id: 3,
+      title: 'Manage comments',
+      icon: <AssessmentIcon />,
+      path: '/comments',
+    },
+    { id: 4, title: 'Add place', icon: <AssessmentIcon />, path: '/add-place' },
   ];
+
+  const toggleActive = (e) => {
+    e.target.classList.toggle('activee');
+  };
 
   return (
     <Paper
       sx={{
         height: '100vh',
         width: '300px',
-        background: 'black',
+        background: 'rgba(0, 0, 0, 0.5)',
+        position: 'fixed',
       }}
     >
       <Container
@@ -37,18 +53,27 @@ function NavPanel() {
         }}
       >
         <Box>
-          <Logo style={{margin: '10px 20px'}}/>
-          <Stack spacing={3} sx={{mt: '50px'}}>
+          <Link to="/">
+            <Logo style={{ margin: '10px 20px' }} />
+          </Link>
+          <Stack spacing={3} sx={{ mt: '50px' }}>
             {btnData.map((item) => {
               return (
-                <Button
-                  className={style.btn}
-                  variant="outlined"
-                  startIcon={item.icon}
-                  onClick={}
-                >
-                  {item.title}
-                </Button>
+                <Link to={item.path}>
+                  <Button
+                    className={style.btn}
+                    variant="outlined"
+                    startIcon={item.icon}
+                    onClick={toggleActive}
+                    sx={{
+                      '&.Mui-active': {
+                        color: 'red',
+                      },
+                    }}
+                  >
+                    {item.title}
+                  </Button>
+                </Link>
               );
             })}
           </Stack>
@@ -57,7 +82,7 @@ function NavPanel() {
           className={style.btn}
           onClick={logout}
           variant="outlined"
-          startIcon={<DeleteIcon/>}
+          startIcon={<DeleteIcon />}
         >
           Log OUT
         </Button>

@@ -5,10 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AddPlace/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AddPlace/style.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CommentsLayout/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CommentsLayout/style.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/QuizLayout/QuestionForm/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/QuizLayout/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Root/ProtectedRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Root/PublicRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Root/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Statistics/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Statistics/style.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/NavPanel/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavPanel/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/NavPanel/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavPanel/style.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/style.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/theme/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme/theme.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +63,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;js.linters.configure.manually.selectedeslint&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Michael/Desktop/travelover/travelover-admin/.eslintrc.js&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Michael/Desktop/travelover/travelover-admin/src/components&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
@@ -63,6 +79,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Michael\Desktop\travelover\travelover-admin\src\components" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Michael\Desktop\travelover\travelover-admin" />
     </key>
@@ -78,7 +97,8 @@
       <workItem from="1651504843846" duration="5185000" />
       <workItem from="1651521270183" duration="9363000" />
       <workItem from="1651530961185" duration="403000" />
-      <workItem from="1651842530334" duration="3729000" />
+      <workItem from="1651842530334" duration="8022000" />
+      <workItem from="1651852313182" duration="4342000" />
     </task>
     <servers />
   </component>
