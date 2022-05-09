@@ -1,22 +1,21 @@
-import React from 'react';
-import NavPanel from '../../components/NavPanel';
 import { Box, Container } from '@mui/material';
-import style from './style.module.css';
-import { Routes, Route } from 'react-router-dom';
-import Statistics from '../../components/Statistics';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import backImg from '../../assets/images/backDash.jpg';
 import AddPlace from '../../components/AddPlace';
 import CommentsLayout from '../../components/CommentsLayout';
+import NavPanel from '../../components/NavPanel';
 import QuizLayout from '../../components/QuizLayout';
-import backImg from '../../assets/images/backDash.jpg';
+import Statistics from '../../components/Statistics';
 
-function Dashboard(props) {
+function Dashboard() {
   return (
     <>
       <Box
-        className={style.Box}
         sx={{
           display: 'flex',
           background: `url(${backImg}) center / cover no-repeat`,
+          backgroundAttachment: 'fixed',
           minHeight: '100vh',
         }}
       >

@@ -5,29 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/images/backAuth.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/backDash.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/milad-fakurian-3O303QRh04Q-unsplash.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useStatistics.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/getStatistics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Statistics/StatCard/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/backAuth.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/backDash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/milad-fakurian-3O303QRh04Q-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/firebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddPlace/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddPlace/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/clearFirestoreCache.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CommentsLayout/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentsLayout/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavPanel/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavPanel/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/QuizLayout/QuestionForm/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/QuizLayout/QuestionForm/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/QuizLayout/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/QuizLayout/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Root/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Root/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Statistics/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Statistics/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AuthLayout/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AuthLayout/style.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useStatistics.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/style.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/getStatistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/getStatistics.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +31,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -50,6 +44,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="ProjectId" id="28c95SSDEn6wLalNs2MRaAkiJGy" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -58,29 +55,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;js.linters.configure.manually.selectedeslint&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Michael/Desktop/travelover/travelover-admin/src/components&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettier.import.notification.dismissed&quot;: &quot;true&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Michael\\Desktop\\travelover\\travelover-admin&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "js.linters.configure.manually.selectedeslint": "true",
+    "last_opened_file_path": "C:/Users/Michael/Desktop/travelover/travelover-admin",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "C:\\Users\\Michael\\Desktop\\travelover\\travelover-admin\\node_modules\\eslint",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettier.import.notification.dismissed": "true",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Michael\\Desktop\\travelover\\travelover-admin\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.sourceCode.JavaScript",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Michael\Desktop\travelover\travelover-admin\src\components" />
@@ -90,6 +87,9 @@
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="" />
@@ -102,7 +102,12 @@
       <workItem from="1651530961185" duration="403000" />
       <workItem from="1651842530334" duration="8022000" />
       <workItem from="1651852313182" duration="4481000" />
-      <workItem from="1652109415571" duration="9752000" />
+      <workItem from="1652109415571" duration="10089000" />
+      <workItem from="1652123826252" duration="655000" />
+      <workItem from="1652124522229" duration="1060000" />
+      <workItem from="1652126203258" duration="203000" />
+      <workItem from="1652126443046" duration="256000" />
+      <workItem from="1652126742030" duration="11877000" />
     </task>
     <servers />
   </component>

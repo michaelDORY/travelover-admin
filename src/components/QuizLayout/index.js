@@ -1,37 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  Container,
-  Fab,
-  Paper,
-  Stack,
-  TextField,
-} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Box, Button, Paper, Stack, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import uniqid from 'uniqid';
 import QuestionForm from './QuestionForm';
 
 const QuizLayout = () => {
   const defaultQuestion = {
+    id: uniqid(),
     title: '',
     answers: [''],
     rightAnswer: '',
   };
 
-  const [questions, setQuestions] = useState([]);
-  // const questions = [];
+  const [questions, setQuestions] = useState([defaultQuestion]);
 
-  useEffect(() => {
-    setQuestions((prev) => {
-      return [...prev, defaultQuestion];
-    });
-  }, []);
-
-  const addQuestion = () => {
-    setQuestions((prev) => [...prev, defaultQuestion]);
-  };
-
-  console.log(questions);
+  // const addQuestion = () => {
+  //   setQuestions((prev) => [...prev, defaultQuestion]);
+  // };
 
   return (
     <Box
@@ -63,23 +47,20 @@ const QuizLayout = () => {
               <TextField placeholder="1.5h" />
               <TextField placeholder="1.5h" />
             </Stack>
-            <Button>OK</Button>
           </Stack>
         </Paper>
       </form>
-      <QuestionForm />
-      {/*{questions.map((item) => {*/}
-      {/*  <QuestionForm*/}
-      {/*    title={item.title}*/}
-      {/*    answers={item.answers}*/}
-      {/*    rightAnswer={item.rightAnswer}*/}
-      {/*    setQuestions={setQuestions()}*/}
-      {/*  />;*/}
-      {/*})}*/}
-
-      {/*<Fab color="primary" aria-label="add" onClick={addQuestion}>*/}
-      {/*  <AddIcon />*/}
-      {/*</Fab>*/}
+      {questions.map((item) => (
+        <QuestionForm
+          key={uniqid()}
+          id={item.id}
+          title={item.title}
+          answers={item.answers}
+          rightAnswer={item.rightAnswer}
+          setQuestions={setQuestions}
+          questions={questions}
+        />
+      ))}
       <Button variant="contained" size="large">
         Add quiz
       </Button>

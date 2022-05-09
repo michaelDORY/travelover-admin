@@ -1,4 +1,3 @@
-import style from './style.module.css';
 import {
   Alert,
   Button,
@@ -7,13 +6,13 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import React, { useState } from 'react';
+import { auth, db } from 'common/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../common/firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../common/firebase';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { useFormik } from 'formik';
+import React, { useState } from 'react';
+import * as yup from 'yup';
+import style from './style.module.css';
 
 function Auth() {
   const [alert, setAlert] = useState({
@@ -50,13 +49,9 @@ function Auth() {
 
       const querySnapshot = await getDocs(q);
 
-      let isSuchAdmin = false;
-      querySnapshot.forEach((item) => {
-        isSuchAdmin = true;
-      });
-      if (isSuchAdmin) {
+      if (querySnapshot.size) {
         signInWithEmailAndPassword(auth, email, password)
-          .then((user) =>
+          .then(() =>
             setAlert({ status: 'success', message: 'Welcome', isOpen: true }),
           )
           .catch((error) => {

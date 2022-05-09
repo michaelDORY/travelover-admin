@@ -1,14 +1,13 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { auth } from 'common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { Navigate, Route } from 'react-router-dom';
+import AuthLayout from '../../pages/AuthLayout';
+import Dashboard from '../../pages/Dashboard';
 
 import LoadingPage from '../../pages/LoadingPage';
-import Dashboard from '../../pages/Dashboard';
-import AuthLayout from '../../pages/AuthLayout';
 import ProtectedRoutes from './ProtectedRoutes';
 import PublicRoutes from './PublicRoutes';
-import { auth } from '../../common/firebase';
 
 function Root() {
   const [loading, setLoading] = useState(true);
