@@ -35,20 +35,21 @@ function Root() {
   return (
     <>
       {isUserLogged ? (
-        <PublicRoutes>
+        <ProtectedRoutes>
           <Route path="/*" element={<Navigate replace to="/" />} />
           <Route path="/" element={<Dashboard />}>
+            <Route path="/" />
             <Route path="statistics" />
             <Route path="add-place" />
             <Route path="comments" />
             <Route path="add-quiz" />
           </Route>
-        </PublicRoutes>
+        </ProtectedRoutes>
       ) : (
-        <ProtectedRoutes>
+        <PublicRoutes>
           <Route path="/login" element={<AuthLayout />} />
           <Route path="/*" element={<Navigate replace to="/login" />} />
-        </ProtectedRoutes>
+        </PublicRoutes>
       )}
     </>
   );

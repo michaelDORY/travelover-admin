@@ -1,17 +1,40 @@
-import React, { useState } from 'react';
-import { Button, Container, Fab, Paper, Stack, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {
+  Box,
+  Button,
+  Container,
+  Fab,
+  Paper,
+  Stack,
+  TextField,
+} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import QuestionForm from './QuestionForm';
 
 const QuizLayout = () => {
-  const [questions, setQuestions] = useState([]);
-
-  const addQuestion = () => {
-    setQuestions((prev) => [...prev, <QuestionForm />]);
+  const defaultQuestion = {
+    title: '',
+    answers: [''],
+    rightAnswer: '',
   };
 
+  const [questions, setQuestions] = useState([]);
+  // const questions = [];
+
+  useEffect(() => {
+    setQuestions((prev) => {
+      return [...prev, defaultQuestion];
+    });
+  }, []);
+
+  const addQuestion = () => {
+    setQuestions((prev) => [...prev, defaultQuestion]);
+  };
+
+  console.log(questions);
+
   return (
-    <Container
+    <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -44,14 +67,23 @@ const QuizLayout = () => {
           </Stack>
         </Paper>
       </form>
+      <QuestionForm />
+      {/*{questions.map((item) => {*/}
+      {/*  <QuestionForm*/}
+      {/*    title={item.title}*/}
+      {/*    answers={item.answers}*/}
+      {/*    rightAnswer={item.rightAnswer}*/}
+      {/*    setQuestions={setQuestions()}*/}
+      {/*  />;*/}
+      {/*})}*/}
 
-      {questions}
-
-      <Fab color="primary" aria-label="add" onClick={addQuestion}>
-        <AddIcon />
-      </Fab>
-      <Button variant="contained">Add</Button>
-    </Container>
+      {/*<Fab color="primary" aria-label="add" onClick={addQuestion}>*/}
+      {/*  <AddIcon />*/}
+      {/*</Fab>*/}
+      <Button variant="contained" size="large">
+        Add quiz
+      </Button>
+    </Box>
   );
 };
 

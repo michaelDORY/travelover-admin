@@ -1,6 +1,8 @@
 import React from 'react';
 import {
+  Box,
   Container,
+  Fab,
   Paper,
   Table,
   TableBody,
@@ -9,6 +11,8 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 const CommentsLayout = () => {
   const status = {
@@ -57,7 +61,7 @@ const CommentsLayout = () => {
   ];
 
   return (
-    <Container sx={{ paddingY: '50px' }}>
+    <Box sx={{ paddingY: '50px' }}>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -65,6 +69,7 @@ const CommentsLayout = () => {
               {tableHeadingCells.map((item) => {
                 return <TableCell>{item}</TableCell>;
               })}
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -76,25 +81,25 @@ const CommentsLayout = () => {
                   <TableCell>{item.user_id}</TableCell>
                   <TableCell>{item.commentText}</TableCell>
                   <TableCell>{item.status}</TableCell>
+                  <TableCell>
+                    <Fab
+                      color="primary"
+                      aria-label="approve"
+                      sx={{ mr: '15px' }}
+                    >
+                      <CheckIcon />
+                    </Fab>
+                    <Fab color="secondary" aria-label="reject">
+                      <CloseIcon />
+                    </Fab>
+                  </TableCell>
                 </TableRow>
               );
             })}
-            {/*<TableRow>*/}
-            {/*  <TableCell>fgfgfgf</TableCell>*/}
-            {/*  <TableCell>fgfgfgf</TableCell>*/}
-            {/*</TableRow>*/}
-            {/*<TableRow>*/}
-            {/*  <TableCell>fgfgfgf</TableCell>*/}
-            {/*  <TableCell>fgfgfgf</TableCell>*/}
-            {/*</TableRow>*/}
-            {/*<TableRow>*/}
-            {/*  <TableCell>fgfgfgf</TableCell>*/}
-            {/*  <TableCell>fgfgfgf</TableCell>*/}
-            {/*</TableRow>*/}
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </Box>
   );
 };
 

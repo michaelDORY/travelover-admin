@@ -1,12 +1,33 @@
 import style from './style.module.css';
-import { Button, Container, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Button,
+  Container,
+  Snackbar,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import React from 'react';
+import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../common/firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../../common/firebase';
 
 function Auth() {
+  const [alert, setAlert] = useState({
+    status: 'error',
+    isOpen: false,
+    message: 'Oops',
+  });
+
+  const handleCloseAlert = () => {
+    setAlert((prev) => {
+      return { ...prev, isOpen: false };
+    });
+  };
+
   const validationSchema = yup.object({
     email: yup
       .string()
@@ -24,10 +45,26 @@ function Auth() {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: ({ email, password }) => {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((user) => console.log(user))
-        .catch((error) => error.message);
+    onSubmit: async ({ email, password }) => {
+      const q = query(collection(db, 'admins'), where('email', '==', email));
+
+      const querySnapshot = await getDocs(q);
+
+      let isSuchAdmin = false;
+      querySnapshot.forEach((item) => {
+        isSuchAdmin = true;
+      });
+      if (isSuchAdmin) {
+        signInWithEmailAndPassword(auth, email, password)
+          .then((user) =>
+            setAlert({ status: 'success', message: 'Welcome', isOpen: true }),
+          )
+          .catch((error) => {
+            setAlert({ status: 'error', message: error.message, isOpen: true });
+          });
+      } else {
+        setAlert({ status: 'error', message: 'No such admin', isOpen: true });
+      }
     },
   });
 
@@ -75,6 +112,19 @@ function Auth() {
           </Button>
         </Container>
       </form>
+      <Snackbar
+        open={alert.isOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseAlert}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity={alert.status}
+          sx={{ width: '100%' }}
+        >
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }
