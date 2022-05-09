@@ -1,30 +1,33 @@
-import React from 'react';
-import NavPanel from '../../components/NavPanel';
 import { Box, Container } from '@mui/material';
-import style from './style.module.css';
-import { Routes, Route } from 'react-router-dom';
-import Statistics from '../../components/Statistics';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import backImg from '../../assets/images/backDash.jpg';
 import AddPlace from '../../components/AddPlace';
 import CommentsLayout from '../../components/CommentsLayout';
+import NavPanel from '../../components/NavPanel';
 import QuizLayout from '../../components/QuizLayout';
+import Statistics from '../../components/Statistics';
 
-function Dashboard(props) {
+function Dashboard() {
   return (
     <>
       <Box
-        className={style.Box}
         sx={{
           display: 'flex',
-          background: 'url(/images/backDash.jpg) center / cover no-repeat',
+          background: `url(${backImg}) center / cover no-repeat`,
+          backgroundAttachment: 'fixed',
+          minHeight: '100vh',
         }}
       >
         <NavPanel />
-        <Routes>
-          <Route path="/statistics" element={<Statistics />} />
-          <Route path="/add-place" element={<AddPlace />} />
-          <Route path="/add-quiz" element={<QuizLayout />} />
-          <Route path="/comments" element={<CommentsLayout />} />
-        </Routes>
+        <Container sx={{ ml: '300px', paddingY: '50px' }}>
+          <Routes>
+            <Route path="/statistics" element={<Statistics />} />
+            <Route path="/add-place" element={<AddPlace />} />
+            <Route path="/add-quiz" element={<QuizLayout />} />
+            <Route path="/comments" element={<CommentsLayout />} />
+          </Routes>
+        </Container>
       </Box>
     </>
   );

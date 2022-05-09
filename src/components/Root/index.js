@@ -1,14 +1,13 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { auth } from 'common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { Navigate, Route } from 'react-router-dom';
+import AuthLayout from '../../pages/AuthLayout';
+import Dashboard from '../../pages/Dashboard';
 
 import LoadingPage from '../../pages/LoadingPage';
-import Dashboard from '../../pages/Dashboard';
-import AuthLayout from '../../pages/AuthLayout';
 import ProtectedRoutes from './ProtectedRoutes';
 import PublicRoutes from './PublicRoutes';
-import { auth } from '../../common/firebase';
 
 function Root() {
   const [loading, setLoading] = useState(true);
@@ -35,20 +34,21 @@ function Root() {
   return (
     <>
       {isUserLogged ? (
-        <PublicRoutes>
+        <ProtectedRoutes>
           <Route path="/*" element={<Navigate replace to="/" />} />
           <Route path="/" element={<Dashboard />}>
+            <Route path="/" />
             <Route path="statistics" />
             <Route path="add-place" />
             <Route path="comments" />
             <Route path="add-quiz" />
           </Route>
-        </PublicRoutes>
+        </ProtectedRoutes>
       ) : (
-        <ProtectedRoutes>
+        <PublicRoutes>
           <Route path="/login" element={<AuthLayout />} />
           <Route path="/*" element={<Navigate replace to="/login" />} />
-        </ProtectedRoutes>
+        </PublicRoutes>
       )}
     </>
   );

@@ -1,16 +1,16 @@
-import React from 'react';
-import style from './style.module.css';
-import { Box, Button, Container, Paper, Stack } from '@mui/material';
-import { ReactComponent as Logo } from '../../assets/icons/logo-yellow.svg';
-import { auth } from '../../common/firebase';
-import { signOut } from 'firebase/auth';
-import DeleteIcon from '@mui/icons-material/Delete';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Box, Button, Container, Paper, Stack } from '@mui/material';
+import { auth } from 'common/firebase';
+import { signOut } from 'firebase/auth';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as Logo } from '../../assets/icons/logo-yellow.svg';
+import style from './style.module.css';
 
 function NavPanel() {
   const logout = () => {
-    signOut(auth).then(console.log('Logged out')).catch(console.log('Error'));
+    signOut(auth).catch(() => console.log('Error'));
   };
 
   const btnData = [
@@ -59,7 +59,7 @@ function NavPanel() {
           <Stack spacing={3} sx={{ mt: '50px' }}>
             {btnData.map((item) => {
               return (
-                <Link to={item.path}>
+                <Link key={item.path} to={item.path}>
                   <Button
                     className={style.btn}
                     variant="outlined"

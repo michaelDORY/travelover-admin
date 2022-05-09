@@ -1,17 +1,24 @@
+import { Box, Button, Paper, Stack, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import { Button, Container, Fab, Paper, Stack, TextField } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import uniqid from 'uniqid';
 import QuestionForm from './QuestionForm';
 
 const QuizLayout = () => {
-  const [questions, setQuestions] = useState([]);
-
-  const addQuestion = () => {
-    setQuestions((prev) => [...prev, <QuestionForm />]);
+  const defaultQuestion = {
+    id: uniqid(),
+    title: '',
+    answers: [''],
+    rightAnswer: '',
   };
 
+  const [questions, setQuestions] = useState([defaultQuestion]);
+
+  // const addQuestion = () => {
+  //   setQuestions((prev) => [...prev, defaultQuestion]);
+  // };
+
   return (
-    <Container
+    <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -40,18 +47,24 @@ const QuizLayout = () => {
               <TextField placeholder="1.5h" />
               <TextField placeholder="1.5h" />
             </Stack>
-            <Button>OK</Button>
           </Stack>
         </Paper>
       </form>
-
-      {questions}
-
-      <Fab color="primary" aria-label="add" onClick={addQuestion}>
-        <AddIcon />
-      </Fab>
-      <Button variant="contained">Add</Button>
-    </Container>
+      {questions.map((item) => (
+        <QuestionForm
+          key={uniqid()}
+          id={item.id}
+          title={item.title}
+          answers={item.answers}
+          rightAnswer={item.rightAnswer}
+          setQuestions={setQuestions}
+          questions={questions}
+        />
+      ))}
+      <Button variant="contained" size="large">
+        Add quiz
+      </Button>
+    </Box>
   );
 };
 
