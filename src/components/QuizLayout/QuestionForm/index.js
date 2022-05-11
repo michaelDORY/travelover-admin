@@ -2,6 +2,10 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { Button, Container, Fab, Paper, Stack, TextField } from '@mui/material';
 import React from 'react';
 import uniqid from 'uniqid';
+import { InputAdornment } from '@mui/material';
+import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
 const QuestionForm = (props) => {
   const defaultQuestion = {
@@ -54,9 +58,66 @@ const QuestionForm = (props) => {
               },
             }}
           >
+            <label>Question text</label>
             <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <QuestionMarkOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
               placeholder="Question"
               name="title"
+              value={props.title}
+            />
+            <label>Answers</label>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CheckCircleOutlineOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
+              placeholder="Right answer"
+              name="firstAnswer"
+              value={props.title}
+            />
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CancelOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
+              placeholder="Second answer"
+              name="secondAnswer"
+              value={props.title}
+            />
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CancelOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
+              placeholder="Third answer"
+              name="thirdAnswer"
+              value={props.title}
+            />
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CancelOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
+              placeholder="Fourth answer"
+              name="fourtAnswer"
               value={props.title}
             />
             <Button

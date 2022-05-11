@@ -2,6 +2,10 @@ import { Box, Button, Paper, Stack, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import uniqid from 'uniqid';
 import QuestionForm from './QuestionForm';
+import { InputAdornment } from '@mui/material';
+import CreateIcon from '@mui/icons-material/Create';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 
 const QuizLayout = () => {
   const defaultQuestion = {
@@ -41,12 +45,40 @@ const QuizLayout = () => {
               },
             }}
           >
-            <TextField placeholder="English Quiz" />
-            <TextField multiline placeholder="Very nice quix..." />
-            <Stack direction="row" justifyContent="space-between">
-              <TextField placeholder="1.5h" />
-              <TextField placeholder="1.5h" />
-            </Stack>
+            <label>Name of quiz</label>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CreateIcon />
+                  </InputAdornment>
+                ),
+              }}
+              placeholder="Enter name of quiz"
+            />
+            <label>Quiz description</label>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <DescriptionOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
+              multiline
+              placeholder="Enter quiz description"
+            />
+            <label>Quiz time</label>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccessTimeOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
+              placeholder="Enter quiz time in minutes"
+            />
           </Stack>
         </Paper>
       </form>
