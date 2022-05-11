@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="fixed pro stat logic and modified add-quiz">
-      <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/QuizLayout/QuestionForm/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/QuizLayout/QuestionForm/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/firebase.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +102,8 @@
       <workItem from="1652126742030" duration="14010000" />
       <workItem from="1652198491484" duration="791000" />
       <workItem from="1652284666116" duration="532000" />
-      <workItem from="1652292064514" duration="1569000" />
+      <workItem from="1652292064514" duration="1812000" />
+      <workItem from="1652294752019" duration="94000" />
     </task>
     <task id="LOCAL-00001" summary="fixed pro stat logic and modified add-quiz">
       <created>1652139762291</created>
