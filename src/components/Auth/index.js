@@ -21,6 +21,8 @@ function Auth() {
     message: 'Oops',
   });
 
+  const [isBtnActive, setIsBtnActive] = useState(true);
+
   const handleCloseAlert = () => {
     setAlert((prev) => {
       return { ...prev, isOpen: false };
@@ -45,6 +47,7 @@ function Auth() {
     },
     validationSchema: validationSchema,
     onSubmit: async ({ email, password }) => {
+      setIsBtnActive(false);
       const q = query(collection(db, 'admins'), where('email', '==', email));
 
       const querySnapshot = await getDocs(q);
@@ -56,9 +59,11 @@ function Auth() {
           )
           .catch((error) => {
             setAlert({ status: 'error', message: error.message, isOpen: true });
+            setIsBtnActive(true);
           });
       } else {
         setAlert({ status: 'error', message: 'No such admin', isOpen: true });
+        setIsBtnActive(true);
       }
     },
   });
@@ -102,6 +107,7 @@ function Auth() {
             size="large"
             variant="contained"
             sx={{ width: '100%' }}
+            disabled={!isBtnActive}
           >
             Войти
           </Button>
@@ -109,7 +115,7 @@ function Auth() {
       </form>
       <Snackbar
         open={alert.isOpen}
-        autoHideDuration={2000}
+        autoHideDuration={5000}
         onClose={handleCloseAlert}
       >
         <Alert

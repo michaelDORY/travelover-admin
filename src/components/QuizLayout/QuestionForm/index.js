@@ -1,19 +1,44 @@
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Button, Container, Fab, Paper, Stack, TextField } from '@mui/material';
+import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
+import {
+  Button,
+  Container,
+  Fab,
+  InputAdornment,
+  Paper,
+  Stack,
+  TextField,
+} from '@mui/material';
+import { useFormik } from 'formik';
 import React from 'react';
 import uniqid from 'uniqid';
-import { InputAdornment } from '@mui/material';
-import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
-import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import * as yup from 'yup';
 
 const QuestionForm = (props) => {
   const defaultQuestion = {
     id: uniqid(),
     title: '',
-    answers: [''],
+    incorrectAnswers: ['', '', ''],
     rightAnswer: '',
   };
+
+  const validationSchema = yup.object({
+    title: yup
+      .string('Enter title')
+      .min(8, 'Title should be of minimum 8 characters length')
+      .required('Password is required'),
+    rightAnswer: yup.string('Enter answer').required('Password is required'),
+  });
+
+  const formik = useFormik({
+    initialValues: defaultQuestion,
+    validationSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   const deleteQuestion = () => {
     props.setQuestions((prev) => prev.filter((item) => item.id !== props.id));
@@ -33,7 +58,7 @@ const QuestionForm = (props) => {
         paddingY: '25px',
       }}
     >
-      <form onSubmit={submitHandler}>
+      <form onSubmit={formik.handleSubmit}>
         <Paper
           sx={{
             padding: '40px 60px',
@@ -69,7 +94,8 @@ const QuestionForm = (props) => {
               }}
               placeholder="Question"
               name="title"
-              value={props.title}
+              value={formik.values.title}
+              onChange={formik.handleChange}
             />
             <label>Answers</label>
             <TextField
@@ -81,53 +107,71 @@ const QuestionForm = (props) => {
                 ),
               }}
               placeholder="Right answer"
-              name="firstAnswer"
-              value={props.title}
+              name="rightAnswer"
+              value={formik.values.rightAnswer}
+              onChange={formik.handleChange}
             />
-            <TextField
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <CancelOutlinedIcon />
-                  </InputAdornment>
-                ),
-              }}
-              placeholder="Second answer"
-              name="secondAnswer"
-              value={props.title}
-            />
-            <TextField
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <CancelOutlinedIcon />
-                  </InputAdornment>
-                ),
-              }}
-              placeholder="Third answer"
-              name="thirdAnswer"
-              value={props.title}
-            />
-            <TextField
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <CancelOutlinedIcon />
-                  </InputAdornment>
-                ),
-              }}
-              placeholder="Fourth answer"
-              name="fourtAnswer"
-              value={props.title}
-            />
+            {formik.values.incorrectAnswers.map((answer, index) => (
+              <TextField
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <CancelOutlinedIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Answer"
+                name={`incorrectAnswers[${index}]`}
+                value={formik.values.incorrectAnswers[index]}
+                onChange={formik.handleChange}
+              />
+            ))}
+            {/*<TextField*/}
+            {/*  InputProps={{*/}
+            {/*    startAdornment: (*/}
+            {/*      <InputAdornment position="start">*/}
+            {/*        <CancelOutlinedIcon />*/}
+            {/*      </InputAdornment>*/}
+            {/*    ),*/}
+            {/*  }}*/}
+            {/*  placeholder="Second answer"*/}
+            {/*  name="secondAnswer"*/}
+            {/*  value={formik.values.incorrectAnswers[0]}*/}
+            {/*  onChange={formik.handleChange}*/}
+            {/*/>*/}
+            {/*<TextField*/}
+            {/*  InputProps={{*/}
+            {/*    startAdornment: (*/}
+            {/*      <InputAdornment position="start">*/}
+            {/*        <CancelOutlinedIcon />*/}
+            {/*      </InputAdornment>*/}
+            {/*    ),*/}
+            {/*  }}*/}
+            {/*  placeholder="Third answer"*/}
+            {/*  name="thirdAnswer"*/}
+            {/*  value={formik.values.incorrectAnswers[1]}*/}
+            {/*  onChange={formik.handleChange}*/}
+            {/*/>*/}
+            {/*<TextField*/}
+            {/*  InputProps={{*/}
+            {/*    startAdornment: (*/}
+            {/*      <InputAdornment position="start">*/}
+            {/*        <CancelOutlinedIcon />*/}
+            {/*      </InputAdornment>*/}
+            {/*    ),*/}
+            {/*  }}*/}
+            {/*  placeholder="Fourth answer"*/}
+            {/*  name="fourthAnswer"*/}
+            {/*  value={formik.values.incorrectAnswers[2]}*/}
+            {/*  onChange={formik.handleChange}*/}
+            {/*/>*/}
             <Button
               type="submit"
               size="large"
               color="success"
               variant="contained"
-              disabled={
-                props.id !== props.questions[props.questions.length - 1].id
-              }
+              disabled={!formik.isValid}
+              onChange={formik.handleChange}
             >
               Add
             </Button>
