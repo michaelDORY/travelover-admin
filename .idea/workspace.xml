@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="fixed pro stat logic and modified add-quiz">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/no-place.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/firebase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddPlace/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddPlace/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +107,8 @@
       <workItem from="1652284666116" duration="532000" />
       <workItem from="1652292064514" duration="1812000" />
       <workItem from="1652294752019" duration="94000" />
+      <workItem from="1652296791309" duration="99000" />
+      <workItem from="1652345803093" duration="22774000" />
     </task>
     <task id="LOCAL-00001" summary="fixed pro stat logic and modified add-quiz">
       <created>1652139762291</created>
