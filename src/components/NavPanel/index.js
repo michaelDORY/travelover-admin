@@ -1,14 +1,20 @@
-import AssessmentIcon from '@mui/icons-material/Assessment';
-import DeleteIcon from '@mui/icons-material/Delete';
+import CommentIcon from '@mui/icons-material/Comment';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PlaceIcon from '@mui/icons-material/Place';
+import QuizIcon from '@mui/icons-material/Quiz';
+import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
 import { Box, Button, Container, Paper, Stack } from '@mui/material';
 import { auth } from 'common/firebase';
 import { signOut } from 'firebase/auth';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/icons/logo-yellow.svg';
 import style from './style.module.css';
 
 function NavPanel() {
+  const location = useLocation();
+  console.log(location);
+
   const logout = () => {
     signOut(auth).catch(() => console.log('Error'));
   };
@@ -17,22 +23,18 @@ function NavPanel() {
     {
       id: 1,
       title: 'Statistics',
-      icon: <AssessmentIcon />,
+      icon: <StackedLineChartIcon />,
       path: '/statistics',
     },
-    { id: 2, title: 'Add quiz', icon: <AssessmentIcon />, path: '/add-quiz' },
+    { id: 2, title: 'Add quiz', icon: <QuizIcon />, path: '/add-quiz' },
     {
       id: 3,
-      title: 'Manage comments',
-      icon: <AssessmentIcon />,
+      title: 'Comments',
+      icon: <CommentIcon />,
       path: '/comments',
     },
-    { id: 4, title: 'Add place', icon: <AssessmentIcon />, path: '/add-place' },
+    { id: 4, title: 'Add place', icon: <PlaceIcon />, path: '/add-place' },
   ];
-
-  const toggleActive = (e) => {
-    e.target.classList.toggle('activee');
-  };
 
   return (
     <Paper
@@ -61,15 +63,11 @@ function NavPanel() {
               return (
                 <Link key={item.path} to={item.path}>
                   <Button
-                    className={style.btn}
+                    className={`${style.btn} ${
+                      location.pathname === item.path ? style.active : null
+                    }`}
                     variant="outlined"
                     startIcon={item.icon}
-                    onClick={toggleActive}
-                    sx={{
-                      '&.Mui-active': {
-                        color: 'red',
-                      },
-                    }}
                   >
                     {item.title}
                   </Button>
@@ -82,7 +80,7 @@ function NavPanel() {
           className={style.btn}
           onClick={logout}
           variant="outlined"
-          startIcon={<DeleteIcon />}
+          startIcon={<LogoutIcon />}
         >
           Log OUT
         </Button>

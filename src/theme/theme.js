@@ -32,6 +32,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, .1))',
+        },
+      },
+    },
   },
 });
 

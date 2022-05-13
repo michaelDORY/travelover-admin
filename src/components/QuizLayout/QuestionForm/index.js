@@ -113,6 +113,7 @@ const QuestionForm = (props) => {
             />
             {formik.values.incorrectAnswers.map((answer, index) => (
               <TextField
+                key={uniqid()}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">

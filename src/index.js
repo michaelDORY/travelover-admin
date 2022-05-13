@@ -1,18 +1,21 @@
+import { ThemeProvider } from '@mui/material';
+import { UIContextProvider } from 'components/UIContext';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { ThemeProvider } from '@mui/material';
-import theme from './theme/theme';
 import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 import './common/firebase';
+import './index.css';
+import theme from './theme/theme';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <UIContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </UIContextProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),

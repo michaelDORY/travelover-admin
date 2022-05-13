@@ -1,33 +1,20 @@
-import {
-  Alert,
-  Button,
-  Container,
-  Snackbar,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { auth, db } from 'common/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { Button, Container, TextField, Typography } from '@mui/material';
+import { UIContext } from 'components/UIContext';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { loginAdmin } from 'server/admins';
 import * as yup from 'yup';
 import style from './style.module.css';
 
 function Auth() {
-  const [alert, setAlert] = useState({
-    status: 'error',
-    isOpen: false,
-    message: 'Oops',
-  });
+  const alertContent = {
+    show: true,
+    severity: 'error',
+    message: 'Sorry, something went wrong(',
+  };
+  const { setAlert } = useContext(UIContext);
 
   const [isBtnActive, setIsBtnActive] = useState(true);
-
-  const handleCloseAlert = () => {
-    setAlert((prev) => {
-      return { ...prev, isOpen: false };
-    });
-  };
 
   const validationSchema = yup.object({
     email: yup
@@ -48,21 +35,23 @@ function Auth() {
     validationSchema: validationSchema,
     onSubmit: async ({ email, password }) => {
       setIsBtnActive(false);
-      const q = query(collection(db, 'admins'), where('email', '==', email));
-
-      const querySnapshot = await getDocs(q);
-
-      if (querySnapshot.size) {
-        signInWithEmailAndPassword(auth, email, password)
-          .then(() =>
-            setAlert({ status: 'success', message: 'Welcome', isOpen: true }),
-          )
-          .catch((error) => {
-            setAlert({ status: 'error', message: error.message, isOpen: true });
-            setIsBtnActive(true);
+      try {
+        const res = await loginAdmin(email, password);
+        if (res) {
+          setAlert({
+            ...alertContent,
+            severity: 'success',
+            message: 'Welcome on board!',
           });
-      } else {
-        setAlert({ status: 'error', message: 'No such admin', isOpen: true });
+        } else {
+          setAlert({
+            ...alertContent,
+            message: 'There is no such admin account',
+          });
+        }
+      } catch (e) {
+        setAlert(alertContent);
+      } finally {
         setIsBtnActive(true);
       }
     },
@@ -94,7 +83,6 @@ function Auth() {
           <TextField
             label="Password"
             variant="standard"
-            autoComplete="off"
             name="password"
             id="password"
             value={formik.values.password}
@@ -113,19 +101,6 @@ function Auth() {
           </Button>
         </Container>
       </form>
-      <Snackbar
-        open={alert.isOpen}
-        autoHideDuration={5000}
-        onClose={handleCloseAlert}
-      >
-        <Alert
-          onClose={handleCloseAlert}
-          severity={alert.status}
-          sx={{ width: '100%' }}
-        >
-          {alert.message}
-        </Alert>
-      </Snackbar>
     </>
   );
 }
