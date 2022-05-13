@@ -1,13 +1,13 @@
 import { Box } from '@mui/material';
 import StatCard from 'components/Statistics/StatCard';
 import React, { useEffect, useState } from 'react';
-import getStatistics from '../../server/getStatistics';
+import { getProStat } from '../../server/statistics';
 
 function Statistics() {
   const [proStatistics, setProStatistics] = useState([]);
 
   useEffect(async () => {
-    const proArr = await getStatistics();
+    const proArr = await getProStat();
     setProStatistics(proArr);
   }, []);
 

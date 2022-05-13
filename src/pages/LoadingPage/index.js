@@ -1,12 +1,17 @@
+import { Stack } from '@mui/material';
 import React from 'react';
-import style from './style.module.css';
 import { PacmanLoader } from 'react-spinners';
 
 function LoadingPage(props) {
   return (
-    <div className={style.page}>
+    <Stack
+      width="100vw"
+      height="100vh"
+      alignItems="center"
+      justifyContent="center"
+    >
       <PacmanLoader loading={props.loading} size={60} />
-    </div>
+    </Stack>
   );
 }
 

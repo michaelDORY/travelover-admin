@@ -7,37 +7,32 @@ import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
-  Alert,
   Box,
   Button,
   Grid,
   InputAdornment,
   Paper,
-  Snackbar,
   TextField,
 } from '@mui/material';
 import { db, storage } from 'common/firebase';
+import { UIContext } from 'components/UIContext';
 import { doc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import uniqid from 'uniqid';
 import * as yup from 'yup';
 import NoPlaceImage from '../../assets/images/no-place.jpg';
 
 function AddPlace(props) {
   const [preview, setPreview] = useState(null);
-  const [alert, setAlert] = useState({
-    status: 'error',
-    isOpen: false,
-    message: 'Something went wrong',
-  });
 
-  const handleCloseAlert = () => {
-    setAlert((prev) => {
-      return { ...prev, isOpen: false };
-    });
+  const alertContent = {
+    show: true,
+    severity: 'error',
+    message: 'Sorry, something went wrong(',
   };
+  const { setAlert } = useContext(UIContext);
 
   const initialValues = {
     image: {},
@@ -72,17 +67,13 @@ function AddPlace(props) {
         formik.resetForm();
         setPreview('');
         setAlert({
-          status: 'success',
+          ...alertContent,
+          severity: 'success',
           message: 'Successfully added a new place',
-          isOpen: true,
         });
       } catch (e) {
         console.log(e.message);
-        setAlert({
-          status: 'error',
-          message: 'Something went wrong',
-          isOpen: true,
-        });
+        setAlert(alertContent);
       }
     },
   });
@@ -111,198 +102,183 @@ function AddPlace(props) {
   };
 
   return (
-    <>
-      <Box
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-      >
-        <form onSubmit={formik.handleSubmit}>
-          <Paper
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '40px 30px',
-              maxWidth: '600px',
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <form onSubmit={formik.handleSubmit}>
+        <Paper
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '40px 30px',
+            maxWidth: '600px',
 
-              '& > *': {
-                width: '100%',
-              },
-            }}
-          >
-            <Grid container spacing={4}>
-              <Grid
-                item
-                lg={6}
-                md={12}
-                sm={12}
+            '& > *': {
+              width: '100%',
+            },
+          }}
+        >
+          <Grid container spacing={4}>
+            <Grid
+              item
+              lg={6}
+              md={12}
+              sm={12}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
+                  height: '150px',
+                  borderRadius: '15px',
+                  mb: '20px',
+                  maxWidth: '250px',
+                  minWidth: '167px',
                 }}
               >
-                <Box
-                  sx={{
-                    height: '150px',
+                <img
+                  src={preview ? preview : NoPlaceImage}
+                  alt="image of place"
+                  style={{
+                    objectFit: 'cover',
+                    height: '100%',
+                    width: '100%',
                     borderRadius: '15px',
-                    mb: '20px',
-                    maxWidth: '250px',
-                    minWidth: '167px',
+                    border:
+                      !preview && formik.touched.image
+                        ? '1px solid #f44336'
+                        : null,
                   }}
-                >
-                  <img
-                    src={preview ? preview : NoPlaceImage}
-                    alt="image of place"
-                    style={{
-                      objectFit: 'cover',
-                      height: '100%',
-                      width: '100%',
-                      borderRadius: '15px',
-                      border:
-                        !preview && formik.touched.image
-                          ? '1px solid #f44336'
-                          : null,
-                    }}
-                  />
-                </Box>
-                <Button
-                  startIcon={<FileUploadOutlinedIcon />}
-                  variant="contained"
-                  component="label"
-                  sx={{ maxWidth: '250px', minWidth: '150px' }}
-                >
-                  Upload Image
-                  <input
-                    name="image"
-                    onChange={handleImageChange}
-                    type="file"
-                    accept="image/*"
-                    hidden
-                  />
-                </Button>
-              </Grid>
-              <Grid container item spacing={4} lg={6} md={12} sm={12}>
-                <Grid item md={12} sm={12}>
-                  <TextField
-                    label="Name of place"
-                    value={formik.values.title}
-                    name="title"
-                    onChange={formik.handleChange}
-                    error={formik.touched.title && Boolean(formik.errors.title)}
-                    helperText={formik.touched.title && formik.errors.title}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <CreateIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    placeholder="Enter name of place"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item md={12} sm={12}>
-                  <TextField
-                    label="Country name"
-                    name="country"
-                    value={formik.values.country}
-                    onChange={formik.handleChange}
-                    error={
-                      formik.touched.country && Boolean(formik.errors.country)
-                    }
-                    helperText={formik.touched.country && formik.errors.country}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <FlagOutlinedIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    placeholder="Enter country name"
-                    fullWidth
-                  />
-                </Grid>
-              </Grid>
-              <Grid item lg={12} md={12} sm={12}>
+                />
+              </Box>
+              <Button
+                startIcon={<FileUploadOutlinedIcon />}
+                variant="contained"
+                component="label"
+                sx={{ maxWidth: '250px', minWidth: '150px' }}
+              >
+                Upload Image
+                <input
+                  name="image"
+                  onChange={handleImageChange}
+                  type="file"
+                  accept="image/*"
+                  hidden
+                />
+              </Button>
+            </Grid>
+            <Grid container item spacing={4} lg={6} md={12} sm={12}>
+              <Grid item md={12} sm={12}>
                 <TextField
-                  label="City, address of place"
-                  name="address"
-                  value={formik.values.address}
+                  label="Name of place"
+                  value={formik.values.title}
+                  name="title"
                   onChange={formik.handleChange}
-                  error={
-                    formik.touched.address && Boolean(formik.errors.address)
-                  }
-                  helperText={formik.touched.address && formik.errors.address}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <PlaceOutlinedIcon />
+                        <CreateIcon />
                       </InputAdornment>
                     ),
                   }}
-                  placeholder="Enter address of place"
+                  placeholder="Enter name of place"
                   fullWidth
                 />
               </Grid>
-              <Grid item lg={12} md={12} sm={12}>
+              <Grid item md={12} sm={12}>
                 <TextField
-                  label="Description about place"
-                  name="description"
-                  value={formik.values.description}
+                  label="Country name"
+                  name="country"
+                  value={formik.values.country}
                   onChange={formik.handleChange}
                   error={
-                    formik.touched.description &&
-                    Boolean(formik.errors.description)
+                    formik.touched.country && Boolean(formik.errors.country)
                   }
-                  helperText={
-                    formik.touched.description && formik.errors.description
-                  }
+                  helperText={formik.touched.country && formik.errors.country}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <DescriptionOutlinedIcon />
+                        <FlagOutlinedIcon />
                       </InputAdornment>
                     ),
                   }}
-                  multiline
-                  placeholder="Enter description about place"
+                  placeholder="Enter country name"
                   fullWidth
                 />
-              </Grid>
-              <Grid item lg={12} md={12} sm={12}>
-                <LoadingButton
-                  type="submit"
-                  loading={formik.isSubmitting}
-                  loadingPosition="start"
-                  startIcon={formik.isSubmitting ? <SaveIcon /> : <AddIcon />}
-                  variant="contained"
-                  size="large"
-                  fullWidth
-                >
-                  {formik.isSubmitting ? 'Adding' : 'Add'}
-                </LoadingButton>
               </Grid>
             </Grid>
-          </Paper>
-        </form>
-      </Box>
-      <Snackbar
-        open={alert.isOpen}
-        autoHideDuration={5000}
-        onClose={handleCloseAlert}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      >
-        <Alert
-          onClose={handleCloseAlert}
-          variant="filled"
-          severity={alert.status}
-          sx={{ width: '100%' }}
-        >
-          {alert.message}
-        </Alert>
-      </Snackbar>
-    </>
+            <Grid item lg={12} md={12} sm={12}>
+              <TextField
+                label="City, address of place"
+                name="address"
+                value={formik.values.address}
+                onChange={formik.handleChange}
+                error={formik.touched.address && Boolean(formik.errors.address)}
+                helperText={formik.touched.address && formik.errors.address}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PlaceOutlinedIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Enter address of place"
+                fullWidth
+              />
+            </Grid>
+            <Grid item lg={12} md={12} sm={12}>
+              <TextField
+                label="Description about place"
+                name="description"
+                value={formik.values.description}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.description &&
+                  Boolean(formik.errors.description)
+                }
+                helperText={
+                  formik.touched.description && formik.errors.description
+                }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <DescriptionOutlinedIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                multiline
+                placeholder="Enter description about place"
+                fullWidth
+              />
+            </Grid>
+            <Grid item lg={12} md={12} sm={12}>
+              <LoadingButton
+                type="submit"
+                loading={formik.isSubmitting}
+                loadingPosition="start"
+                startIcon={formik.isSubmitting ? <SaveIcon /> : <AddIcon />}
+                variant="contained"
+                size="large"
+                fullWidth
+              >
+                {formik.isSubmitting ? 'Adding' : 'Add'}
+              </LoadingButton>
+            </Grid>
+          </Grid>
+        </Paper>
+      </form>
+    </Box>
   );
 }
 

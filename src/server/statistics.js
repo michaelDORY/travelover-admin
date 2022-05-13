@@ -1,7 +1,7 @@
 import { db } from 'common/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
-const getStatistics = async () => {
+export const getProStat = async () => {
   const proStatistics = [];
 
   const q = query(collection(db, 'users'), where('hasPro', '==', true));
@@ -18,5 +18,3 @@ const getStatistics = async () => {
 
   return proStatistics;
 };
-
-export default getStatistics;
