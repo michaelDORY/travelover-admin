@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import StatCard from 'components/Statistics/StatCard';
 import React, { useEffect, useState } from 'react';
 import { getProStat } from '../../server/statistics';
@@ -12,14 +12,41 @@ function Statistics() {
   }, []);
 
   return (
-    <Box>
-      <StatCard
-        title="Pro users"
-        data={proStatistics}
-        xAsis="dateOfGettingPro"
-        yAsis="count"
-      />
-    </Box>
+    <Container>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
+        <StatCard
+          title="Pro users"
+          data={proStatistics}
+          xAsis="dateOfGettingPro"
+          yAsis="count"
+        />
+        <StatCard
+          title="Pro users"
+          data={proStatistics}
+          xAsis="dateOfGettingPro"
+          yAsis="count"
+        />
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          paddingY: '50px',
+        }}
+      >
+        <StatCard
+          title="Pro users"
+          data={proStatistics}
+          xAsis="dateOfGettingPro"
+          yAsis="count"
+        />
+      </Box>
+    </Container>
   );
 }
 

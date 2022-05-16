@@ -83,8 +83,8 @@ const QuestionForm = (props) => {
               },
             }}
           >
-            <label>Question text</label>
             <TextField
+              label="Question text"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -97,8 +97,9 @@ const QuestionForm = (props) => {
               value={formik.values.title}
               onChange={formik.handleChange}
             />
-            <label>Answers</label>
+            <label style={{ textAlign: 'center' }}>Answers</label>
             <TextField
+              label="Right answer"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -106,13 +107,14 @@ const QuestionForm = (props) => {
                   </InputAdornment>
                 ),
               }}
-              placeholder="Right answer"
+              placeholder="Enter right answer"
               name="rightAnswer"
               value={formik.values.rightAnswer}
               onChange={formik.handleChange}
             />
             {formik.values.incorrectAnswers.map((answer, index) => (
               <TextField
+                label="Answer"
                 key={uniqid()}
                 InputProps={{
                   startAdornment: (
@@ -121,7 +123,7 @@ const QuestionForm = (props) => {
                     </InputAdornment>
                   ),
                 }}
-                placeholder="Answer"
+                placeholder="Enter answer"
                 name={`incorrectAnswers[${index}]`}
                 value={formik.values.incorrectAnswers[index]}
                 onChange={formik.handleChange}
