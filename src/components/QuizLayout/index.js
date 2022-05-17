@@ -1,17 +1,16 @@
-import { Box, Button, Paper, Stack, TextField } from '@mui/material';
-import React, { useContext, useState } from 'react';
-import uniqid from 'uniqid';
-import QuestionForm from './QuestionForm';
-import { InputAdornment } from '@mui/material';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import AddIcon from '@mui/icons-material/Add';
 import CreateIcon from '@mui/icons-material/Create';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { UIContext } from 'components/UIContext';
 import SaveIcon from '@mui/icons-material/Save';
-import AddIcon from '@mui/icons-material/Add';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Box, InputAdornment, Paper, Stack, TextField } from '@mui/material';
+import { UIContext } from 'components/UIContext';
+import { useFormik } from 'formik';
+import React, { useContext } from 'react';
+import uniqid from 'uniqid';
+import * as yup from 'yup';
+import QuestionForm from './QuestionForm';
 
 const QuizLayout = () => {
   const defaultQuestion = {
@@ -21,7 +20,7 @@ const QuizLayout = () => {
     rightAnswer: '',
   };
 
-  const [questions, setQuestions] = useState([defaultQuestion]);
+  // const [questions, setQuestions] = useState([defaultQuestion]);
 
   // const addQuestion = () => {
   //   setQuestions((prev) => [...prev, defaultQuestion]);
@@ -35,6 +34,7 @@ const QuizLayout = () => {
   const initialValues = {
     nameOfQuiz: '',
     description: '',
+    questions: [defaultQuestion],
     time: '',
   };
 
@@ -43,6 +43,7 @@ const QuizLayout = () => {
     description: yup
       .string('Enter description')
       .required('Description is required'),
+    questions: yup.array(),
     time: yup.string().required('Time is required'),
   });
 
@@ -52,7 +53,6 @@ const QuizLayout = () => {
     onSubmit: async (values) => {
       try {
         formik.resetForm();
-        setPreview('');
         setAlert({
           ...alertContent,
           severity: 'success',
@@ -148,15 +148,16 @@ const QuizLayout = () => {
             />
           </Stack>
         </Paper>
-        {questions.map((item) => (
+        {formik.values.questions.map((item, index) => (
           <QuestionForm
             key={uniqid()}
             id={item.id}
             title={item.title}
+            name={`questions.${index}`}
             answers={item.answers}
             rightAnswer={item.rightAnswer}
-            setQuestions={setQuestions}
-            questions={questions}
+            onChange={formik.handleChange}
+            value={formik.values.questions[index]}
           />
         ))}
         <LoadingButton

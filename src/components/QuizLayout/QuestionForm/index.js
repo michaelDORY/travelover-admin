@@ -11,10 +11,8 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { useFormik } from 'formik';
 import React from 'react';
 import uniqid from 'uniqid';
-import * as yup from 'yup';
 
 const QuestionForm = (props) => {
   const defaultQuestion = {
@@ -24,30 +22,30 @@ const QuestionForm = (props) => {
     rightAnswer: '',
   };
 
-  const validationSchema = yup.object({
-    title: yup
-      .string('Enter title')
-      .min(8, 'Title should be of minimum 8 characters length')
-      .required('Password is required'),
-    rightAnswer: yup.string('Enter answer').required('Password is required'),
-  });
-
-  const formik = useFormik({
-    initialValues: defaultQuestion,
-    validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+  // const validationSchema = yup.object({
+  //   title: yup
+  //     .string('Enter title')
+  //     .min(8, 'Title should be of minimum 8 characters length')
+  //     .required('Password is required'),
+  //   rightAnswer: yup.string('Enter answer').required('Password is required'),
+  // });
+  //
+  // const formik = useFormik({
+  //   initialValues: defaultQuestion,
+  //   validationSchema,
+  //   onSubmit: (values) => {
+  //     alert(JSON.stringify(values, null, 2));
+  //   },
+  // });
 
   const deleteQuestion = () => {
     props.setQuestions((prev) => prev.filter((item) => item.id !== props.id));
   };
 
-  const submitHandler = () => {
-    props.setQuestions((prev) => [...prev, defaultQuestion]);
-    window.scrollBy(0, 300);
-  };
+  // const submitHandler = () => {
+  //   props.setQuestions((prev) => [...prev, defaultQuestion]);
+  //   window.scrollBy(0, 300);
+  // };
 
   return (
     <Container
@@ -93,9 +91,9 @@ const QuestionForm = (props) => {
                 ),
               }}
               placeholder="Question"
-              name="title"
-              value={formik.values.title}
-              onChange={formik.handleChange}
+              name={`${props.name}.title`}
+              value={props.value.title}
+              onChange={props.onChange}
             />
             <label style={{ textAlign: 'center' }}>Answers</label>
             <TextField
