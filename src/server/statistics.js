@@ -11,22 +11,21 @@ export const getProStat = async () => {
 
   querySnapshot.forEach((item) => {
     const data = item.data();
-    const dateString = data.whenGotPro.toDate().toString();
-    console.log(dateString);
+    const dateString = data.whenGotPro.toDate().toDateString();
 
-    if (proStatObj[dateString] !== undefined) {
+    if (proStatObj[dateString]) {
       proStatObj[dateString] = [...proStatObj[dateString], data];
     } else {
       proStatObj[dateString] = [data];
     }
-
-    for (const [key, value] of Object.entries(proStatObj)) {
-      proStatistics.push({
-        dateOfGettingPro: new Date(key).toLocaleDateString(),
-        count: value.length,
-      });
-    }
   });
+
+  for (const [key, value] of Object.entries(proStatObj)) {
+    proStatistics.push({
+      dateOfGettingPro: new Date(key).toLocaleDateString(),
+      count: value.length,
+    });
+  }
 
   return proStatistics;
 };
