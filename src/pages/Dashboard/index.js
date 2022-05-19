@@ -22,7 +22,7 @@ function Dashboard() {
         <NavPanel />
         <Container sx={{ ml: '300px', paddingY: '50px' }}>
           <Routes>
-            <Route path="/statistics" element={<Statistics />} />
+            <Route path="/" element={<Statistics />} />
             <Route path="/add-place" element={<AddPlace />} />
             <Route path="/add-quiz" element={<QuizLayout />} />
             <Route path="/comments" element={<CommentsLayout />} />

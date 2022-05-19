@@ -1,9 +1,9 @@
 import { auth } from 'common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import Dashboard from 'pages/Dashboard';
 import React, { useEffect, useState } from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import AuthLayout from '../../pages/AuthLayout';
-import Dashboard from '../../pages/Dashboard';
 
 import LoadingPage from '../../pages/LoadingPage';
 import ProtectedRoutes from './ProtectedRoutes';
@@ -38,7 +38,6 @@ function Root() {
           <Route path="/*" element={<Navigate replace to="/" />} />
           <Route path="/" element={<Dashboard />}>
             <Route path="/" />
-            <Route path="statistics" />
             <Route path="add-place" />
             <Route path="comments" />
             <Route path="add-quiz" />

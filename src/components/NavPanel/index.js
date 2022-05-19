@@ -23,7 +23,7 @@ function NavPanel() {
       id: 1,
       title: 'Statistics',
       icon: <StackedLineChartIcon />,
-      path: '/statistics',
+      path: '/',
     },
     { id: 2, title: 'Add quiz', icon: <QuizIcon />, path: '/add-quiz' },
     {
