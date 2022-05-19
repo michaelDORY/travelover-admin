@@ -16,21 +16,17 @@ const QuizLayout = () => {
   const defaultQuestion = {
     id: uniqid(),
     title: '',
-    answers: [''],
+    incorrectAnswers: ['', '', ''],
     rightAnswer: '',
   };
 
-  // const [questions, setQuestions] = useState([defaultQuestion]);
-
-  // const addQuestion = () => {
-  //   setQuestions((prev) => [...prev, defaultQuestion]);
-  // };
   const alertContent = {
     show: true,
     severity: 'error',
     message: 'Sorry, something went wrong(',
   };
   const { setAlert } = useContext(UIContext);
+
   const initialValues = {
     nameOfQuiz: '',
     description: '',
@@ -43,7 +39,17 @@ const QuizLayout = () => {
     description: yup
       .string('Enter description')
       .required('Description is required'),
-    questions: yup.array(),
+    questions: yup
+      .array()
+      .of(
+        yup
+          .object()
+          .test(
+            'notDefault',
+            'All questions should be filled',
+            (item) => !!item.title,
+          ),
+      ),
     time: yup.string().required('Time is required'),
   });
 
@@ -151,18 +157,17 @@ const QuizLayout = () => {
         {formik.values.questions.map((item, index) => (
           <QuestionForm
             key={uniqid()}
+            index={index}
+            formik={formik}
             id={item.id}
-            title={item.title}
-            name={`questions.${index}`}
-            answers={item.answers}
-            rightAnswer={item.rightAnswer}
-            onChange={formik.handleChange}
-            value={formik.values.questions[index]}
+            questions={formik.values.questions}
+            name={`questions[${index}]`}
           />
         ))}
         <LoadingButton
           type="submit"
           loading={formik.isSubmitting}
+          disabled={!formik.isValid}
           loadingPosition="start"
           startIcon={formik.isSubmitting ? <SaveIcon /> : <AddIcon />}
           variant="contained"
