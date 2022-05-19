@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import StatCard from 'components/Statistics/StatCard';
 import React, { useEffect, useState } from 'react';
-import { getProStat } from '../../server/statistics';
+import { getProStat } from 'server/statistics';
 
 function Statistics() {
   const [proStatistics, setProStatistics] = useState([]);
