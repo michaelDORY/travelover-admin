@@ -13,7 +13,6 @@ import style from './style.module.css';
 
 function NavPanel() {
   const location = useLocation();
-  console.log(location);
 
   const logout = () => {
     signOut(auth).catch(() => console.log('Error'));
