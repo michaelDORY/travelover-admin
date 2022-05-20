@@ -79,7 +79,7 @@ const CommentsLayout = () => {
   };
 
   return (
-    <Box sx={{ paddingY: '50px' }}>
+    <Box sx={{ paddingY: '50px', paddingX: '50px' }}>
       {isLoading ? (
         <PacmanLoader
           loading={isLoading}

@@ -6,6 +6,7 @@ import { InputAdornment } from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 
 const QuizLayout = () => {
   const defaultQuestion = {
@@ -35,18 +36,19 @@ const QuizLayout = () => {
           sx={{
             padding: '40px 60px',
             width: '600px',
+            borderRadius: '10px',
           }}
         >
           <Stack
-            spacing={2}
+            spacing={3}
             sx={{
               '& > *': {
                 width: '100%',
               },
             }}
           >
-            <label>Name of quiz</label>
             <TextField
+              label="Name of quiz"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -56,8 +58,8 @@ const QuizLayout = () => {
               }}
               placeholder="Enter name of quiz"
             />
-            <label>Quiz description</label>
             <TextField
+              label="Quiz description"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -68,8 +70,8 @@ const QuizLayout = () => {
               multiline
               placeholder="Enter quiz description"
             />
-            <label>Quiz time</label>
             <TextField
+              label="Quiz time"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

@@ -14,7 +14,7 @@ function Dashboard() {
       <Box
         sx={{
           display: 'flex',
-          background: `url(${backImg}) center / cover no-repeat`,
+          background: `#dbde95`,
           backgroundAttachment: 'fixed',
           minHeight: '100vh',
         }}
