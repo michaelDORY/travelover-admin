@@ -1,25 +1,25 @@
 button.btn {
   width: 100%;
-  padding: 8px 0;
-  letter-spacing: 4px;
-  color: #1d1c1c;
-  background: rgb(255, 255, 255);
-  box-shadow: 0 8px 15px rgba(246, 246, 246, 0.1);
-  transition: all .3s ease-in-out;
+  align-items: left;
+  letter-spacing: 2px;
+  padding: 15px 20px;
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+  color: #f0f084;
+  background: rgb(0, 0, 0);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .3s linear;
+  display: flex;
+  align-items: left;
+  justify-content: left;
 }
-
 button.btn:hover, button.active {
-  box-shadow: 0 15px 20px rgba(222, 206, 38, 0.4);
-  color: white;
-  transform: translateY(-2px);
-  transition: all .3s ease-in-out;
-}
+background: rgba(242, 242, 242, 0.2);
+border: 0;
+box-shadow: 0 15px 20px rgba(21, 21, 21, 0.4);
+color: rgba(252, 248, 248, 0.936);
+transform: translateY(-2px);
+transition: all .3s ease-in-out;
 
-button.btn:hover {
-  background: rgb(211, 199, 84);
 }
-
-button.active {
-  background: #cdba0e;
-}
-

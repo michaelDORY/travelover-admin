@@ -39,14 +39,15 @@ function NavPanel() {
     <Paper
       sx={{
         height: '100vh',
-        width: '300px',
-        background: 'rgba(0, 0, 0, 0.5)',
+        width: '330px',
+        background: '#0f0f0d',
         position: 'fixed',
+        borderRadius: '0px 60px 30px 0px',
       }}
     >
       <Container
         sx={{
-          padding: '20px 0 50px',
+          padding: '45px 0 50px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',

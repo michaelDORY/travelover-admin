@@ -118,6 +118,7 @@ function AddPlace(props) {
             justifyContent: 'center',
             padding: '40px 30px',
             maxWidth: '600px',
+            borderRadius: '20px',
 
             '& > *': {
               width: '100%',

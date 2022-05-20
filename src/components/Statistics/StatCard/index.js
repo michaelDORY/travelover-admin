@@ -12,7 +12,7 @@ import {
 
 const StatCard = (props) => {
   return (
-    <Card sx={{ width: '400px', minHeight: '300px' }}>
+    <Card sx={{ width: '400px', minHeight: '300px', margin: '20px' }}>
       <CardHeader title={props.title} />
       <CardContent sx={{ width: '100%', height: '100%', padding: '25px' }}>
         <ResponsiveContainer width="100%" height={200}>
