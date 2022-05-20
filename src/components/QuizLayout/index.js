@@ -2,15 +2,24 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import CreateIcon from '@mui/icons-material/Create';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Box, InputAdornment, Paper, Stack, TextField } from '@mui/material';
+import {
+  Box,
+  InputAdornment,
+  Paper,
+  Grid,
+  TextField,
+  Button,
+} from '@mui/material';
 import { UIContext } from 'components/UIContext';
 import { useFormik } from 'formik';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import uniqid from 'uniqid';
 import * as yup from 'yup';
 import QuestionForm from './QuestionForm';
+import NoPlaceImage from '../../assets/images/no-place.jpg';
 
 const QuizLayout = () => {
   const defaultQuestion = {
@@ -20,6 +29,8 @@ const QuizLayout = () => {
     rightAnswer: '',
   };
 
+  const [preview, setPreview] = useState(null);
+
   const alertContent = {
     show: true,
     severity: 'error',
@@ -28,6 +39,7 @@ const QuizLayout = () => {
   const { setAlert } = useContext(UIContext);
 
   const initialValues = {
+    image: {},
     nameOfQuiz: '',
     description: '',
     questions: [defaultQuestion],
@@ -35,6 +47,9 @@ const QuizLayout = () => {
   };
 
   const validationSchema = yup.object({
+    image: yup
+      .mixed()
+      .test('empty-check', 'Choose an image', (image) => image.name),
     nameOfQuiz: yup.string('Enter name').required('Name is required'),
     description: yup
       .string('Enter description')
@@ -58,6 +73,8 @@ const QuizLayout = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
+        const imageId = await uploadImageToStorage(values.image);
+        await setDoc(doc(db, 'places', imageId), { ...values, image: imageId });
         formik.resetForm();
         setAlert({
           ...alertContent,
@@ -71,6 +88,29 @@ const QuizLayout = () => {
     },
   });
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) {
+      setPreview(undefined);
+      return;
+    }
+    const objectUrl = URL.createObjectURL(file);
+    formik.values.image = file;
+    setPreview(objectUrl);
+  };
+
+  const uploadImageToStorage = async (file) => {
+    const imageId = uniqid();
+    const storageRef = ref(storage, imageId);
+    try {
+      const res = await uploadBytes(storageRef, file);
+      return res.ref.name;
+    } catch (e) {
+      return '';
+    }
+  };
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <Box
@@ -83,76 +123,140 @@ const QuizLayout = () => {
       >
         <Paper
           sx={{
-            padding: '40px 60px',
-            width: '600px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '40px 30px',
+            maxWidth: '600px',
+
+            '& > *': {
+              width: '100%',
+            },
           }}
         >
-          <Stack
-            spacing={4}
-            sx={{
-              '& > *': {
-                width: '100%',
-              },
-            }}
-          >
-            <TextField
-              label="Name of quiz"
-              value={formik.values.nameOfQuiz}
-              name="nameOfQuiz"
-              onChange={formik.handleChange}
-              error={
-                formik.touched.nameOfQuiz && Boolean(formik.errors.nameOfQuiz)
-              }
-              helperText={formik.touched.nameOfQuiz && formik.errors.nameOfQuiz}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <CreateIcon />
-                  </InputAdornment>
-                ),
+          <Grid container spacing={4}>
+            <Grid
+              item
+              lg={6}
+              md={12}
+              sm={12}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
               }}
-              placeholder="Enter name of quiz"
-              fullWidth
-            />
-            <TextField
-              label="Quiz description"
-              value={formik.values.description}
-              name="description"
-              onChange={formik.handleChange}
-              error={
-                formik.touched.description && Boolean(formik.errors.description)
-              }
-              helperText={
-                formik.touched.description && formik.errors.description
-              }
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <DescriptionOutlinedIcon />
-                  </InputAdornment>
-                ),
-              }}
-              placeholder="Enter quiz description"
-              fullWidth
-            />
-            <TextField
-              label="Quiz time"
-              value={formik.values.time}
-              name="time"
-              onChange={formik.handleChange}
-              error={formik.touched.time && Boolean(formik.errors.time)}
-              helperText={formik.touched.time && formik.errors.time}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccessTimeOutlinedIcon />
-                  </InputAdornment>
-                ),
-              }}
-              placeholder="Enter quiz time in minutes"
-              fullWidth
-            />
-          </Stack>
+            >
+              <Box
+                sx={{
+                  height: '150px',
+                  borderRadius: '15px',
+                  mb: '20px',
+                  maxWidth: '250px',
+                  minWidth: '167px',
+                }}
+              >
+                <img
+                  src={preview ? preview : NoPlaceImage}
+                  alt="image of place"
+                  style={{
+                    objectFit: 'cover',
+                    height: '100%',
+                    width: '100%',
+                    borderRadius: '15px',
+                    border:
+                      !preview && formik.touched.image
+                        ? '1px solid #f44336'
+                        : null,
+                  }}
+                />
+              </Box>
+              <Button
+                startIcon={<FileUploadOutlinedIcon />}
+                variant="contained"
+                component="label"
+                sx={{ maxWidth: '250px', minWidth: '150px' }}
+              >
+                Upload Image
+                <input
+                  name="image"
+                  onChange={handleImageChange}
+                  type="file"
+                  accept="image/*"
+                  hidden
+                />
+              </Button>
+            </Grid>
+            <Grid container item spacing={4} lg={6} md={12} sm={12}>
+              <Grid item md={12} sm={12}>
+                <TextField
+                  label="Name of quiz"
+                  value={formik.values.nameOfQuiz}
+                  name="nameOfQuiz"
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.nameOfQuiz &&
+                    Boolean(formik.errors.nameOfQuiz)
+                  }
+                  helperText={
+                    formik.touched.nameOfQuiz && formik.errors.nameOfQuiz
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <CreateIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Enter name of quiz"
+                  fullWidth
+                />
+              </Grid>
+              <Grid item md={12} sm={12}>
+                <TextField
+                  label="Quiz time"
+                  value={formik.values.time}
+                  name="time"
+                  onChange={formik.handleChange}
+                  error={formik.touched.time && Boolean(formik.errors.time)}
+                  helperText={formik.touched.time && formik.errors.time}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <AccessTimeOutlinedIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Enter quiz time in minutes"
+                  fullWidth
+                />
+              </Grid>
+            </Grid>
+            <Grid item lg={12} md={12} sm={12}>
+              <TextField
+                label="Quiz description"
+                value={formik.values.description}
+                name="description"
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.description &&
+                  Boolean(formik.errors.description)
+                }
+                helperText={
+                  formik.touched.description && formik.errors.description
+                }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <DescriptionOutlinedIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Enter quiz description"
+                fullWidth
+              />
+            </Grid>
+          </Grid>
         </Paper>
         {formik.values.questions.map((item, index) => (
           <QuestionForm
