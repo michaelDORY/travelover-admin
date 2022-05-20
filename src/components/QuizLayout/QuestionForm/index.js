@@ -1,9 +1,12 @@
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
+import AddIcon from '@mui/icons-material/Add';
+import SaveIcon from '@mui/icons-material/Save';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import {
   Button,
+  Box,
   Container,
   Fab,
   InputAdornment,
@@ -47,8 +50,11 @@ const QuestionForm = ({ id, questions, formik, index }) => {
     );
   }
 
-  const handleClick = (e) => {
+  const saveQuestion = (e) => {
     // formik.setFieldValue('questions', questions.push(defaultQuestion));
+  };
+
+  const addQuestion = (e) => {
     const newQuestions = [...questions, defaultQuestion];
     newQuestions[index] = question;
     isValid && formik.setFieldValue('questions', newQuestions);
@@ -151,15 +157,38 @@ const QuestionForm = ({ id, questions, formik, index }) => {
             />
           ))}
           {index === questions.length - 1 && (
-            <Button
-              size="large"
-              color="success"
-              variant="contained"
-              onClick={handleClick}
-              disabled={!isValid}
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
             >
-              Save
-            </Button>
+              <Button
+                size="large"
+                color="success"
+                variant="contained"
+                onClick={saveQuestion}
+                disabled={!isValid}
+                fullWidth
+                startIcon={<SaveIcon />}
+              >
+                Save
+              </Button>
+              <Button
+                size="large"
+                color="success"
+                variant="contained"
+                onClick={addQuestion}
+                disabled={!isValid}
+                fullWidth
+                sx={{ marginTop: '15px' }}
+                startIcon={<AddIcon />}
+              >
+                Add question
+              </Button>
+            </Box>
           )}
         </Stack>
       </Paper>
