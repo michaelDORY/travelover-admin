@@ -24,7 +24,7 @@ import uniqid from 'uniqid';
 import * as yup from 'yup';
 import NoPlaceImage from '../../assets/images/no-place.jpg';
 
-function AddPlace(props) {
+function AddPlace() {
   const [preview, setPreview] = useState(null);
 
   const alertContent = {
@@ -118,6 +118,7 @@ function AddPlace(props) {
             justifyContent: 'center',
             padding: '40px 30px',
             maxWidth: '600px',
+            borderRadius: '20px',
 
             '& > *': {
               width: '100%',

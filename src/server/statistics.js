@@ -3,6 +3,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 
 export const getProStat = async () => {
   const proStatistics = [];
+  const proStatObj = {};
 
   const q = query(collection(db, 'users'), where('hasPro', '==', true));
 
@@ -10,11 +11,21 @@ export const getProStat = async () => {
 
   querySnapshot.forEach((item) => {
     const data = item.data();
-    proStatistics.push({
-      dateOfGettingPro: data.whenGotPro.toDate().toLocaleDateString(),
-      count: 200,
-    });
+    const dateString = data.whenGotPro.toDate().toDateString();
+
+    if (proStatObj[dateString]) {
+      proStatObj[dateString] = [...proStatObj[dateString], data];
+    } else {
+      proStatObj[dateString] = [data];
+    }
   });
+
+  for (const [key, value] of Object.entries(proStatObj)) {
+    proStatistics.push({
+      dateOfGettingPro: new Date(key).toLocaleDateString(),
+      count: value.length,
+    });
+  }
 
   return proStatistics;
 };

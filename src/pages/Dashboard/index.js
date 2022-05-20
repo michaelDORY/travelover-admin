@@ -1,7 +1,6 @@
 import { Box, Container } from '@mui/material';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import backImg from '../../assets/images/backDash.jpg';
 import AddPlace from '../../components/AddPlace';
 import CommentsLayout from '../../components/CommentsLayout';
 import NavPanel from '../../components/NavPanel';
@@ -14,7 +13,7 @@ function Dashboard() {
       <Box
         sx={{
           display: 'flex',
-          background: `url(${backImg}) center / cover no-repeat`,
+          background: `#dbde95`,
           backgroundAttachment: 'fixed',
           minHeight: '100vh',
         }}
@@ -22,7 +21,7 @@ function Dashboard() {
         <NavPanel />
         <Container sx={{ ml: '300px', paddingY: '50px' }}>
           <Routes>
-            <Route path="/statistics" element={<Statistics />} />
+            <Route path="/" element={<Statistics />} />
             <Route path="/add-place" element={<AddPlace />} />
             <Route path="/add-quiz" element={<QuizLayout />} />
             <Route path="/comments" element={<CommentsLayout />} />
