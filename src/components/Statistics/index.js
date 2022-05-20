@@ -2,13 +2,17 @@ import { Box, Container } from '@mui/material';
 import StatCard from 'components/Statistics/StatCard';
 import React, { useEffect, useState } from 'react';
 import { getProStat } from 'server/statistics';
+import { getAllStat } from 'server/statistics';
 
 function Statistics() {
   const [proStatistics, setProStatistics] = useState([]);
+  const [allStatistics, setAllStatistics] = useState([]);
 
   useEffect(async () => {
     const proArr = await getProStat();
     setProStatistics(proArr);
+    const allArr = await getAllStat();
+    setAllStatistics(allArr);
   }, []);
 
   return (
@@ -26,9 +30,9 @@ function Statistics() {
           yAsis="count"
         />
         <StatCard
-          title="Pro users"
-          data={proStatistics}
-          xAsis="dateOfGettingPro"
+          title="Registered users"
+          data={allStatistics}
+          xAsis="dateOfRegister"
           yAsis="count"
         />
       </Box>
