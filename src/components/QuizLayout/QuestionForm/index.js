@@ -1,12 +1,11 @@
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
-import AddIcon from '@mui/icons-material/Add';
-import SaveIcon from '@mui/icons-material/Save';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
+import SaveIcon from '@mui/icons-material/Save';
 import {
-  Button,
   Box,
+  Button,
   Container,
   Fab,
   InputAdornment,
@@ -18,18 +17,12 @@ import React, { useEffect, useState } from 'react';
 import uniqid from 'uniqid';
 
 const QuestionForm = ({ id, questions, formik, index }) => {
-  const defaultQuestion = {
-    id: uniqid(),
-    title: '',
-    incorrectAnswers: ['', '', ''],
-    rightAnswer: '',
-  };
-
   const isLastQuestion = index === questions.length - 1;
 
   const [question, setQuestion] = useState(questions[index]);
   const [focusedAnswer, setFocusedAnswer] = useState(-1);
   const [isValid, setIsValid] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     setIsValid(validateQuestion(question));
@@ -50,14 +43,14 @@ const QuestionForm = ({ id, questions, formik, index }) => {
     );
   }
 
-  const saveQuestion = (e) => {
-    // formik.setFieldValue('questions', questions.push(defaultQuestion));
-  };
-
-  const addQuestion = (e) => {
-    const newQuestions = [...questions, defaultQuestion];
+  const saveQuestion = () => {
+    setIsValid(validateQuestion(question));
+    const newQuestions = [...questions];
     newQuestions[index] = question;
-    isValid && formik.setFieldValue('questions', newQuestions);
+    if (isValid) {
+      formik.setFieldValue('questions', newQuestions);
+      setIsSaved(true);
+    }
   };
 
   return (
@@ -170,23 +163,11 @@ const QuestionForm = ({ id, questions, formik, index }) => {
                 color="success"
                 variant="contained"
                 onClick={saveQuestion}
-                disabled={!isValid}
+                disabled={!isValid || isSaved}
                 fullWidth
-                startIcon={<SaveIcon />}
+                startIcon={!isSaved ? <SaveIcon /> : null}
               >
-                Save
-              </Button>
-              <Button
-                size="large"
-                color="success"
-                variant="contained"
-                onClick={addQuestion}
-                disabled={!isValid}
-                fullWidth
-                sx={{ marginTop: '15px' }}
-                startIcon={<AddIcon />}
-              >
-                Add question
+                {isSaved ? 'Saved' : 'Save'}
               </Button>
             </Box>
           )}
@@ -195,5 +176,4 @@ const QuestionForm = ({ id, questions, formik, index }) => {
     </Container>
   );
 };
-
 export default QuestionForm;

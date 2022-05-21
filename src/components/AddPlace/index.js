@@ -14,13 +14,12 @@ import {
   Paper,
   TextField,
 } from '@mui/material';
-import { db, storage } from 'common/firebase';
+import { db } from 'common/firebase';
 import { UIContext } from 'components/UIContext';
 import { doc, setDoc } from 'firebase/firestore';
-import { ref, uploadBytes } from 'firebase/storage';
 import { useFormik } from 'formik';
 import React, { useContext, useState } from 'react';
-import uniqid from 'uniqid';
+import { uploadImageToStorage } from 'server/storage';
 import * as yup from 'yup';
 import NoPlaceImage from '../../assets/images/no-place.jpg';
 
@@ -88,17 +87,6 @@ function AddPlace() {
     const objectUrl = URL.createObjectURL(file);
     formik.values.image = file;
     setPreview(objectUrl);
-  };
-
-  const uploadImageToStorage = async (file) => {
-    const imageId = uniqid();
-    const storageRef = ref(storage, imageId);
-    try {
-      const res = await uploadBytes(storageRef, file);
-      return res.ref.name;
-    } catch (e) {
-      return '';
-    }
   };
 
   return (

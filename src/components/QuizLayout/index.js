@@ -7,19 +7,21 @@ import SaveIcon from '@mui/icons-material/Save';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
   Box,
+  Button,
+  Grid,
   InputAdornment,
   Paper,
-  Grid,
   TextField,
-  Button,
 } from '@mui/material';
 import { UIContext } from 'components/UIContext';
+import { doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { uploadImageToStorage } from 'server/storage';
 import uniqid from 'uniqid';
 import * as yup from 'yup';
-import QuestionForm from './QuestionForm';
 import NoPlaceImage from '../../assets/images/no-place.jpg';
+import QuestionForm from './QuestionForm';
 
 const QuizLayout = () => {
   const defaultQuestion = {
@@ -35,6 +37,7 @@ const QuizLayout = () => {
     show: true,
     severity: 'error',
     message: 'Sorry, something went wrong(',
+    anchor: { vertical: 'top', horizontal: 'right' },
   };
   const { setAlert } = useContext(UIContext);
 
@@ -74,7 +77,10 @@ const QuizLayout = () => {
     onSubmit: async (values) => {
       try {
         const imageId = await uploadImageToStorage(values.image);
-        await setDoc(doc(db, 'places', imageId), { ...values, image: imageId });
+        await setDoc(doc(db, 'quizzes', imageId), {
+          ...values,
+          image: imageId,
+        });
         formik.resetForm();
         setAlert({
           ...alertContent,
@@ -88,6 +94,10 @@ const QuizLayout = () => {
     },
   });
 
+  useEffect(async () => {
+    await formik.validateForm();
+  }, []);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -100,15 +110,20 @@ const QuizLayout = () => {
     setPreview(objectUrl);
   };
 
-  const uploadImageToStorage = async (file) => {
-    const imageId = uniqid();
-    const storageRef = ref(storage, imageId);
-    try {
-      const res = await uploadBytes(storageRef, file);
-      return res.ref.name;
-    } catch (e) {
-      return '';
+  const addDefaultQuestion = async () => {
+    await formik.validateForm();
+    if (!formik.isValid) {
+      setAlert({
+        ...alertContent,
+        severity: 'warning',
+        message: 'All fields should be filled',
+      });
+      return;
     }
+    await formik.setFieldValue('questions', [
+      ...formik.values.questions,
+      defaultQuestion,
+    ]);
   };
 
   return (
@@ -268,10 +283,20 @@ const QuizLayout = () => {
             name={`questions[${index}]`}
           />
         ))}
+        <Button
+          size="large"
+          color="success"
+          variant="contained"
+          onClick={addDefaultQuestion}
+          sx={{ marginY: '15px' }}
+          startIcon={<AddIcon />}
+        >
+          Add question
+        </Button>
         <LoadingButton
           type="submit"
+          color="secondary"
           loading={formik.isSubmitting}
-          disabled={!formik.isValid}
           loadingPosition="start"
           startIcon={formik.isSubmitting ? <SaveIcon /> : <AddIcon />}
           variant="contained"
