@@ -7,19 +7,22 @@ import SaveIcon from '@mui/icons-material/Save';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
   Box,
+  Button,
+  Grid,
   InputAdornment,
   Paper,
-  Grid,
   TextField,
-  Button,
 } from '@mui/material';
+import { db } from 'common/firebase';
+import validationSchema from 'components/QuizLayout/validationSchema';
 import { UIContext } from 'components/UIContext';
+import { doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { uploadImageToStorage } from 'server/storage';
 import uniqid from 'uniqid';
-import * as yup from 'yup';
-import QuestionForm from './QuestionForm';
 import NoPlaceImage from '../../assets/images/no-place.jpg';
+import QuestionForm from './QuestionForm';
 
 const QuizLayout = () => {
   const defaultQuestion = {
@@ -35,6 +38,7 @@ const QuizLayout = () => {
     show: true,
     severity: 'error',
     message: 'Sorry, something went wrong(',
+    anchor: { vertical: 'top', horizontal: 'right' },
   };
   const { setAlert } = useContext(UIContext);
 
@@ -46,47 +50,33 @@ const QuizLayout = () => {
     time: '',
   };
 
-  const validationSchema = yup.object({
-    image: yup
-      .mixed()
-      .test('empty-check', 'Choose an image', (image) => image.name),
-    nameOfQuiz: yup.string('Enter name').required('Name is required'),
-    description: yup
-      .string('Enter description')
-      .required('Description is required'),
-    questions: yup
-      .array()
-      .of(
-        yup
-          .object()
-          .test(
-            'notDefault',
-            'All questions should be filled',
-            (item) => !!item.title,
-          ),
-      ),
-    time: yup.string().required('Time is required'),
-  });
-
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
       try {
         const imageId = await uploadImageToStorage(values.image);
-        await setDoc(doc(db, 'places', imageId), { ...values, image: imageId });
+        await setDoc(doc(db, 'quizzes'), {
+          ...values,
+          image: imageId,
+        });
         formik.resetForm();
+        setPreview('');
         setAlert({
           ...alertContent,
           severity: 'success',
           message: 'Successfully added a new Quiz',
         });
       } catch (e) {
-        console.log(e.message);
+        console.log(e);
         setAlert(alertContent);
       }
     },
   });
+
+  useEffect(async () => {
+    await formik.validateForm();
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -100,19 +90,28 @@ const QuizLayout = () => {
     setPreview(objectUrl);
   };
 
-  const uploadImageToStorage = async (file) => {
-    const imageId = uniqid();
-    const storageRef = ref(storage, imageId);
-    try {
-      const res = await uploadBytes(storageRef, file);
-      return res.ref.name;
-    } catch (e) {
-      return '';
+  const addDefaultQuestion = async () => {
+    await formik.setFieldValue('questions', [
+      ...formik.values.questions,
+      defaultQuestion,
+    ]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    formik.handleSubmit(e);
+
+    if (!formik.isValid) {
+      setAlert({
+        ...alertContent,
+        severity: 'info',
+        message: 'All fields should be filled',
+      });
     }
   };
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <Box
         sx={{
           display: 'flex',
@@ -172,6 +171,7 @@ const QuizLayout = () => {
                 />
               </Box>
               <Button
+                disabled={formik.isSubmitting}
                 startIcon={<FileUploadOutlinedIcon />}
                 variant="contained"
                 component="label"
@@ -179,6 +179,7 @@ const QuizLayout = () => {
               >
                 Upload Image
                 <input
+                  disabled={formik.isSubmitting}
                   name="image"
                   onChange={handleImageChange}
                   type="file"
@@ -190,6 +191,7 @@ const QuizLayout = () => {
             <Grid container item spacing={4} lg={6} md={12} sm={12}>
               <Grid item md={12} sm={12}>
                 <TextField
+                  disabled={formik.isSubmitting}
                   label="Name of quiz"
                   value={formik.values.nameOfQuiz}
                   name="nameOfQuiz"
@@ -214,6 +216,7 @@ const QuizLayout = () => {
               </Grid>
               <Grid item md={12} sm={12}>
                 <TextField
+                  disabled={formik.isSubmitting}
                   label="Quiz time"
                   value={formik.values.time}
                   name="time"
@@ -234,6 +237,7 @@ const QuizLayout = () => {
             </Grid>
             <Grid item lg={12} md={12} sm={12}>
               <TextField
+                disabled={formik.isSubmitting}
                 label="Quiz description"
                 value={formik.values.description}
                 name="description"
@@ -260,7 +264,8 @@ const QuizLayout = () => {
         </Paper>
         {formik.values.questions.map((item, index) => (
           <QuestionForm
-            key={uniqid()}
+            disabled={formik.isSubmitting}
+            key={item.id}
             index={index}
             formik={formik}
             id={item.id}
@@ -268,10 +273,22 @@ const QuizLayout = () => {
             name={`questions[${index}]`}
           />
         ))}
+        <Button
+          disabled={formik.isSubmitting}
+          size="large"
+          color="success"
+          variant="contained"
+          onClick={addDefaultQuestion}
+          sx={{ marginBottom: '40px' }}
+          startIcon={<AddIcon />}
+        >
+          Add question
+        </Button>
         <LoadingButton
+          disabled={formik.isSubmitting}
           type="submit"
+          color="secondary"
           loading={formik.isSubmitting}
-          disabled={!formik.isValid}
           loadingPosition="start"
           startIcon={formik.isSubmitting ? <SaveIcon /> : <AddIcon />}
           variant="contained"

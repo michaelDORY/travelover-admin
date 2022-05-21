@@ -40,7 +40,7 @@ function NavPanel() {
       sx={{
         height: '100vh',
         width: '330px',
-        background: '#0f0f0d',
+        background: 'rgba(15,15,13,0.89)',
         position: 'fixed',
         borderRadius: '0px 60px 30px 0px',
       }}
