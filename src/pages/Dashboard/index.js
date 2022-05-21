@@ -1,7 +1,6 @@
 import { Box, Container } from '@mui/material';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import backImg from '../../assets/images/backDash.jpg';
 import AddPlace from '../../components/AddPlace';
 import CommentsLayout from '../../components/CommentsLayout';
 import NavPanel from '../../components/NavPanel';

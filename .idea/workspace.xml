@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="fixed pro stat logic and modified add-quiz">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavPanel/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavPanel/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Root/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Root/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="fixed pro stat logic and modified add-quiz" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -109,7 +104,10 @@
       <workItem from="1652296791309" duration="99000" />
       <workItem from="1652345803093" duration="23509000" />
       <workItem from="1652389799119" duration="741000" />
-      <workItem from="1652455625665" duration="14393000" />
+      <workItem from="1652455625665" duration="14922000" />
+      <workItem from="1652727418746" duration="1339000" />
+      <workItem from="1652782143161" duration="2629000" />
+      <workItem from="1652951280114" duration="4819000" />
     </task>
     <task id="LOCAL-00001" summary="fixed pro stat logic and modified add-quiz">
       <created>1652139762291</created>

@@ -2,7 +2,7 @@
   width: 40%;
   height: 40%;
   border-radius: 20px;
-  box-shadow: rgba(113, 110, 72, 0.929) 0px 5px 30px;
+  box-shadow: rgba(113, 110, 72, 0.929) 0 5px 30px;
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;

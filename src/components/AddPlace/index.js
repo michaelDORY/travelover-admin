@@ -24,7 +24,7 @@ import uniqid from 'uniqid';
 import * as yup from 'yup';
 import NoPlaceImage from '../../assets/images/no-place.jpg';
 
-function AddPlace(props) {
+function AddPlace() {
   const [preview, setPreview] = useState(null);
 
   const alertContent = {
