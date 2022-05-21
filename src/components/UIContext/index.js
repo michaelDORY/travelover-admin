@@ -8,6 +8,7 @@ export const UIContextProvider = ({ children }) => {
     show: false,
     severity: 'info',
     message: '',
+    anchor: { vertical: 'bottom', horizontal: 'center' },
   });
   const handleClose = () =>
     setAlert({
@@ -19,7 +20,7 @@ export const UIContextProvider = ({ children }) => {
     <UIContext.Provider value={{ setAlert }}>
       {children}
       <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={alert.anchor}
         open={alert.show}
         autoHideDuration={2000}
         TransitionComponent={Slide}

@@ -1,11 +1,15 @@
 import { db } from 'common/firebase';
-import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 
 export const getProStat = async () => {
   const proStatistics = [];
   const proStatObj = {};
 
-  const q = query(collection(db, 'users'), where('hasPro', '==', true));
+  const q = query(
+    collection(db, 'users'),
+    where('hasPro', '==', true),
+    orderBy('whenGotPro'),
+  );
 
   const querySnapshot = await getDocs(q);
 
@@ -26,7 +30,6 @@ export const getProStat = async () => {
       count: value.length,
     });
   }
-
   return proStatistics;
 };
 
