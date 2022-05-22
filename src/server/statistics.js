@@ -1,5 +1,12 @@
 import { db } from 'common/firebase';
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
 
 export const getProStat = async () => {
   const proStatistics = [];
@@ -33,9 +40,9 @@ export const getProStat = async () => {
   return proStatistics;
 };
 
-export const getAllStat = async () => {
-  const allStatistics = [];
-  const allStatObj = {};
+export const getRegistrationStat = async () => {
+  const regStat = [];
+  const regStatObj = {};
 
   const q = query(collection(db, 'users'), orderBy('timeStamp'));
 
@@ -45,19 +52,33 @@ export const getAllStat = async () => {
     const data = item.data();
     const dateString = data.timeStamp.toDate().toDateString();
 
-    if (allStatObj[dateString]) {
-      allStatObj[dateString] = [...allStatObj[dateString], data];
+    if (regStatObj[dateString]) {
+      regStatObj[dateString] = [...regStatObj[dateString], data];
     } else {
-      allStatObj[dateString] = [data];
+      regStatObj[dateString] = [data];
     }
   });
 
-  for (const [key, value] of Object.entries(allStatObj)) {
-    allStatistics.push({
+  for (const [key, value] of Object.entries(regStatObj)) {
+    regStat.push({
       dateOfRegister: new Date(key).toLocaleDateString(),
       count: value.length,
     });
   }
 
-  return allStatistics;
+  return regStat;
+};
+
+export const getMostPopularPlaces = async () => {
+  const placesStat = [];
+
+  const q = query(collection(db, 'places'), orderBy('views', 'desc'), limit(5));
+
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((item) => {
+    placesStat.push(item.data());
+  });
+
+  return placesStat;
 };
