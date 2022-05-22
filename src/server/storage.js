@@ -1,5 +1,5 @@
 import { storage } from 'common/firebase';
-import { uploadBytes } from 'firebase/storage';
+import { ref, uploadBytes } from 'firebase/storage';
 import uniqid from 'uniqid';
 
 export const uploadImageToStorage = async (file) => {

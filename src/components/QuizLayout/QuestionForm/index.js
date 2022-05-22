@@ -2,10 +2,7 @@ import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
-import SaveIcon from '@mui/icons-material/Save';
 import {
-  Box,
-  Button,
   Container,
   Fab,
   InputAdornment,
@@ -13,44 +10,14 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import uniqid from 'uniqid';
+import React from 'react';
 
-const QuestionForm = ({ id, questions, formik, index }) => {
-  const isLastQuestion = index === questions.length - 1;
-
-  const [question, setQuestion] = useState(questions[index]);
-  const [focusedAnswer, setFocusedAnswer] = useState(-1);
-  const [isValid, setIsValid] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
-
-  useEffect(() => {
-    setIsValid(validateQuestion(question));
-  }, [question]);
-
+const QuestionForm = ({ id, questions, formik, name, index }) => {
   const deleteQuestion = () => {
     formik.setFieldValue(
       'questions',
       questions.filter((item) => item.id !== id),
     );
-  };
-
-  function validateQuestion(item) {
-    return Boolean(
-      item.title &&
-        item.rightAnswer &&
-        item.incorrectAnswers.every((el) => !!el),
-    );
-  }
-
-  const saveQuestion = () => {
-    setIsValid(validateQuestion(question));
-    const newQuestions = [...questions];
-    newQuestions[index] = question;
-    if (isValid) {
-      formik.setFieldValue('questions', newQuestions);
-      setIsSaved(true);
-    }
   };
 
   return (
@@ -96,13 +63,9 @@ const QuestionForm = ({ id, questions, formik, index }) => {
               ),
             }}
             placeholder="Question"
-            disabled={!isLastQuestion}
-            value={question.title}
-            onChange={(e) =>
-              setQuestion((prev) => {
-                return { ...prev, title: e.target.value };
-              })
-            }
+            name={`${name}.title`}
+            value={questions[index].title}
+            onChange={formik.handleChange}
           />
           <label style={{ textAlign: 'center' }}>Answers</label>
           <TextField
@@ -115,18 +78,14 @@ const QuestionForm = ({ id, questions, formik, index }) => {
               ),
             }}
             placeholder="Enter right answer"
-            disabled={!isLastQuestion}
-            value={question.rightAnswer}
-            onChange={(e) =>
-              setQuestion((prev) => {
-                return { ...prev, rightAnswer: e.target.value };
-              })
-            }
+            name={`${name}.rightAnswer`}
+            value={questions[index].rightAnswer}
+            onChange={formik.handleChange}
           />
-          {question.incorrectAnswers.map((answer, answerIndex) => (
+          {questions[index].incorrectAnswers.map((answer, answerIndex) => (
             <TextField
               label="Answer"
-              key={uniqid()}
+              key={answerIndex}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -135,42 +94,11 @@ const QuestionForm = ({ id, questions, formik, index }) => {
                 ),
               }}
               placeholder="Enter answer"
-              disabled={!isLastQuestion}
-              value={answer}
-              autoFocus={answerIndex === focusedAnswer}
-              onChange={(e) => {
-                const newArray = [...question.incorrectAnswers];
-                newArray[answerIndex] = e.target.value;
-                setFocusedAnswer(answerIndex);
-                setQuestion({
-                  ...question,
-                  incorrectAnswers: newArray,
-                });
-              }}
+              name={`${name}.incorrectAnswers[${answerIndex}]`}
+              value={questions[index].incorrectAnswers[answerIndex]}
+              onChange={formik.handleChange}
             />
           ))}
-          {index === questions.length - 1 && (
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Button
-                size="large"
-                color="success"
-                variant="contained"
-                onClick={saveQuestion}
-                disabled={!isValid || isSaved}
-                fullWidth
-                startIcon={!isSaved ? <SaveIcon /> : null}
-              >
-                {isSaved ? 'Saved' : 'Save'}
-              </Button>
-            </Box>
-          )}
         </Stack>
       </Paper>
     </Container>
