@@ -1,6 +1,6 @@
 button.btn {
   width: 100%;
-  align-items: start;
+  align-items: flex-start;
   letter-spacing: 2px;
   padding: 15px 20px;
   font-family: Geneva, Arial, Helvetica, sans-serif;
@@ -11,14 +11,14 @@ button.btn {
   cursor: pointer;
   transition: .3s linear;
   display: flex;
-  justify-content: left;
+  justify-content: flex-start;
 }
-button.btn:hover, button.active {
-background: rgba(242, 242, 242, 0.2);
-border: 0;
-box-shadow: 0 15px 20px rgba(21, 21, 21, 0.4);
-color: rgba(252, 248, 248, 0.936);
-transform: translateY(-2px);
-transition: all .3s ease-in-out;
 
+button.btn:hover, button.active {
+  background: rgba(242, 242, 242, 0.2);
+  border: 0;
+  box-shadow: 0 15px 20px rgba(21, 21, 21, 0.4);
+  color: rgba(252, 248, 248, 0.936);
+  transform: translateY(-2px);
+  transition: all .3s ease-in-out;
 }
