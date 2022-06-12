@@ -39,6 +39,11 @@ function AddPlace() {
     description: '',
     country: '',
     address: '',
+    views: 0,
+    rating: {
+      mark: 0,
+      users: 0,
+    },
     // geoPoint: {
     //   longitude: 0,
     //   latitude: 0,

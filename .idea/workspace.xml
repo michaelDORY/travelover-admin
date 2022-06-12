@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="12ce554b-c7d5-4707-96e1-c650416f36f3" name="Changes" comment="fixed pro stat logic and modified add-quiz">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Statistics/StatCard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Statistics/StatCard/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Statistics/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Statistics/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/statistics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddPlace/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddPlace/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="stat" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -114,6 +112,9 @@
       <workItem from="1652782143161" duration="2629000" />
       <workItem from="1652951280114" duration="4819000" />
       <workItem from="1653167652480" duration="5856000" />
+      <workItem from="1653234908348" duration="338000" />
+      <workItem from="1654881457213" duration="393000" />
+      <workItem from="1655026741721" duration="620000" />
     </task>
     <task id="LOCAL-00001" summary="fixed pro stat logic and modified add-quiz">
       <created>1652139762291</created>
