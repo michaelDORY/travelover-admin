@@ -15,7 +15,7 @@ function NavPanel() {
   const location = useLocation();
 
   const logout = () => {
-    signOut(auth).catch(() => console.log('Error'));
+    signOut(auth).catch();
   };
 
   const btnData = [

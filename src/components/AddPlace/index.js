@@ -76,7 +76,6 @@ function AddPlace() {
           message: 'Successfully added a new place',
         });
       } catch (e) {
-        console.log(e.message);
         setAlert(alertContent);
       }
     },

@@ -13,7 +13,6 @@ import {
 } from 'recharts';
 
 const StatCard = (props) => {
-  console.log(props);
   return (
     <Card sx={{ width: '400px', minHeight: '300px', margin: '20px' }}>
       <CardHeader title={props.title} />

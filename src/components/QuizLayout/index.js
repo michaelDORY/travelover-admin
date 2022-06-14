@@ -16,7 +16,7 @@ import {
 import { db } from 'common/firebase';
 import validationSchema from 'components/QuizLayout/validationSchema';
 import { UIContext } from 'components/UIContext';
-import { doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import React, { useContext, useEffect, useState } from 'react';
 import { uploadImageToStorage } from 'server/storage';
@@ -56,7 +56,7 @@ const QuizLayout = () => {
     onSubmit: async (values) => {
       try {
         const imageId = await uploadImageToStorage(values.image);
-        await setDoc(doc(db, 'quizzes'), {
+        await addDoc(collection(db, 'quizzes'), {
           ...values,
           image: imageId,
         });
@@ -68,7 +68,6 @@ const QuizLayout = () => {
           message: 'Successfully added a new Quiz',
         });
       } catch (e) {
-        console.log(e);
         setAlert(alertContent);
       }
     },
@@ -100,7 +99,6 @@ const QuizLayout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     formik.handleSubmit(e);
-
     if (!formik.isValid) {
       setAlert({
         ...alertContent,

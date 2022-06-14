@@ -50,7 +50,6 @@ function Statistics() {
         yAsis: 'views',
       },
     ]);
-    console.log(placesArr);
 
     setLoading(false);
   }, []);
