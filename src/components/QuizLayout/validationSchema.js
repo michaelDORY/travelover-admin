@@ -15,6 +15,7 @@ const validationSchema = yup.object({
   image: yup
     .mixed()
     .test('empty-check', 'Choose an image', (image) => image.name),
+  section: yup.string('Enter section').required('Section is required'),
   nameOfQuiz: yup.string('Enter name').required('Name is required'),
   description: yup
     .string('Enter description')

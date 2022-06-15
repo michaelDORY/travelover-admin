@@ -83,6 +83,7 @@ function Auth() {
           <TextField
             label="Password"
             variant="standard"
+            type="password"
             name="password"
             id="password"
             value={formik.values.password}
