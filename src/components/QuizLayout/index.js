@@ -44,6 +44,7 @@ const QuizLayout = () => {
 
   const initialValues = {
     image: {},
+    section: '',
     nameOfQuiz: '',
     description: '',
     questions: [defaultQuestion],
@@ -187,6 +188,28 @@ const QuizLayout = () => {
               </Button>
             </Grid>
             <Grid container item spacing={4} lg={6} md={12} sm={12}>
+              <Grid item md={12} sm={12}>
+                <TextField
+                  disabled={formik.isSubmitting}
+                  label="Section"
+                  value={formik.values.section}
+                  name="section"
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.section && Boolean(formik.errors.section)
+                  }
+                  helperText={formik.touched.section && formik.errors.section}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <CreateIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Enter section of quiz"
+                  fullWidth
+                />
+              </Grid>
               <Grid item md={12} sm={12}>
                 <TextField
                   disabled={formik.isSubmitting}
