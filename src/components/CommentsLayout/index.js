@@ -78,63 +78,65 @@ const CommentsLayout = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <PacmanLoader
+        loading={isLoading}
+        size={60}
+        css={{ margin: '50px auto 0', display: 'block' }}
+        color="#C1C77A"
+      />
+    );
+  }
+
   return (
     <Box sx={{ paddingY: '50px', paddingX: '50px' }}>
-      {isLoading ? (
-        <PacmanLoader
-          loading={isLoading}
-          size={60}
-          css={{ margin: '50px auto 0', display: 'block' }}
-          color="#C1C77A"
-        />
-      ) : (
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                {tableHeadingCells.map((item) => (
-                  <TableCell key={uniqid()}>{item}</TableCell>
-                ))}
-                <TableCell>Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {comments.map((item) => (
-                <TableRow key={uniqid()}>
-                  <TableCell>{item.timeStamp}</TableCell>
-                  <TableCell>{item.place_name}</TableCell>
-                  <TableCell>{item.user_email}</TableCell>
-                  <TableCell>{item.comment}</TableCell>
-                  <TableCell>{item.status}</TableCell>
-                  <TableCell>
-                    <Fab
-                      size="small"
-                      onClick={() => approveComment(item.id)}
-                      color={
-                        item.status === status.pending ? 'primary' : 'default'
-                      }
-                      aria-label="approve"
-                      sx={{ mr: '15px' }}
-                    >
-                      <CheckIcon />
-                    </Fab>
-                    <Fab
-                      color={
-                        item.status === status.pending ? 'secondary' : 'default'
-                      }
-                      onClick={() => rejectComment(item.id)}
-                      aria-label="reject"
-                      size="small"
-                    >
-                      <CloseIcon />
-                    </Fab>
-                  </TableCell>
-                </TableRow>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {tableHeadingCells.map((item) => (
+                <TableCell key={uniqid()}>{item}</TableCell>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {comments.map((item) => (
+              <TableRow key={uniqid()}>
+                <TableCell>{item.timeStamp}</TableCell>
+                <TableCell>{item.place_name}</TableCell>
+                <TableCell>{item.user_email}</TableCell>
+                <TableCell>{item.comment}</TableCell>
+                <TableCell>{item.status}</TableCell>
+                <TableCell>
+                  <Fab
+                    size="small"
+                    onClick={() => approveComment(item.id)}
+                    color={
+                      item.status === status.pending ? 'primary' : 'default'
+                    }
+                    aria-label="approve"
+                    sx={{ mr: '15px' }}
+                  >
+                    <CheckIcon />
+                  </Fab>
+                  <Fab
+                    color={
+                      item.status === status.pending ? 'secondary' : 'default'
+                    }
+                    onClick={() => rejectComment(item.id)}
+                    aria-label="reject"
+                    size="small"
+                  >
+                    <CloseIcon />
+                  </Fab>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };

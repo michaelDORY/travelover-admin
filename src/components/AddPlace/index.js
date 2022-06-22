@@ -3,7 +3,6 @@ import CreateIcon from '@mui/icons-material/Create';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
@@ -22,6 +21,7 @@ import React, { useContext, useState } from 'react';
 import { uploadImageToStorage } from 'server/storage';
 import * as yup from 'yup';
 import NoPlaceImage from '../../assets/images/no-place.jpg';
+import MuiAutocomplete from '../MuiAutocomplete';
 
 function AddPlace() {
   const [preview, setPreview] = useState(null);
@@ -38,27 +38,29 @@ function AddPlace() {
     title: '',
     description: '',
     country: '',
-    address: '',
+    address: {},
     views: 0,
     rating: {
       mark: 0,
       users: 0,
     },
-    // geoPoint: {
-    //   longitude: 0,
-    //   latitude: 0,
-    // },
   };
   const validationSchema = yup.object({
     image: yup
       .mixed()
-      .test('empty-check', 'Choose an image', (image) => image.name),
-    title: yup.string('Enter title').required('Title is required'),
+      .test('empty-check', 'Choose an image', (image) => !!image.name),
+    title: yup
+      .string('Enter title')
+      .min(2, 'Too Short!')
+      .required('Title is required'),
     description: yup
       .string('Enter description')
+      .min(2, 'Too Short!')
       .required('Description is required'),
-    country: yup.string().required('Country is required'),
-    address: yup.string().required('Address is required'),
+    country: yup.string().min(2, 'Too Short!').required('Country is required'),
+    address: yup
+      .mixed('Address is required')
+      .test('check', 'Address is required', (place) => !!place.description),
   });
 
   const formik = useFormik({
@@ -212,22 +214,13 @@ function AddPlace() {
               </Grid>
             </Grid>
             <Grid item lg={12} md={12} sm={12}>
-              <TextField
+              <MuiAutocomplete
                 label="City, address of place"
-                name="address"
+                formik={formik}
                 value={formik.values.address}
-                onChange={formik.handleChange}
                 error={formik.touched.address && Boolean(formik.errors.address)}
                 helperText={formik.touched.address && formik.errors.address}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <PlaceOutlinedIcon />
-                    </InputAdornment>
-                  ),
-                }}
                 placeholder="Enter address of place"
-                fullWidth
               />
             </Grid>
             <Grid item lg={12} md={12} sm={12}>

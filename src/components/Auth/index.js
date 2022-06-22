@@ -82,6 +82,7 @@ function Auth() {
           />
           <TextField
             label="Password"
+            type="password"
             variant="standard"
             type="password"
             name="password"
@@ -95,10 +96,10 @@ function Auth() {
             type="submit"
             size="large"
             variant="contained"
-            sx={{ width: '100%' }}
+            sx={{ width: '100%', fontWeight: 'bold' }}
             disabled={!isBtnActive}
           >
-            Войти
+            Authorize
           </Button>
         </Container>
       </form>
