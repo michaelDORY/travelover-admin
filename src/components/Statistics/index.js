@@ -6,6 +6,7 @@ import {
   getMostPopularPlaces,
   getProStat,
   getRegistrationStat,
+  getTopRatedPlaces,
 } from 'server/statistics';
 
 function Statistics() {
@@ -16,8 +17,11 @@ function Statistics() {
     setAllStatistics([]);
 
     const proArr = await getProStat();
+    const regArr = await getRegistrationStat();
+    const placesMostViewedArr = await getMostPopularPlaces();
+    const placesTopRatedArr = await getTopRatedPlaces();
+
     setAllStatistics((prev) => [
-      ...prev,
       {
         type: 'AreaChart',
         title: 'Pro Users',
@@ -25,11 +29,6 @@ function Statistics() {
         xAsis: 'dateOfGettingPro',
         yAsis: 'count',
       },
-    ]);
-
-    const regArr = await getRegistrationStat();
-    setAllStatistics((prev) => [
-      ...prev,
       {
         type: 'AreaChart',
         title: 'Registered Users',
@@ -37,17 +36,20 @@ function Statistics() {
         xAsis: 'dateOfRegister',
         yAsis: 'count',
       },
-    ]);
-
-    const placesArr = await getMostPopularPlaces();
-    setAllStatistics((prev) => [
-      ...prev,
       {
         type: 'BarChart',
-        title: 'Popular Places',
-        data: placesArr,
+        title: 'Most viewed Places',
+        data: placesMostViewedArr,
         xAsis: 'title',
         yAsis: 'views',
+      },
+      {
+        type: 'BarChart',
+        title: 'TOP Rated Places',
+        data: placesTopRatedArr,
+        xAsis: 'title',
+        yAsis: 'ratingMark',
+        maxHeight: 5,
       },
     ]);
 
@@ -73,6 +75,7 @@ function Statistics() {
         ) : (
           allStatistics.map((item) => (
             <StatCard
+              maxHeight={item.maxHeight ? item.maxHeight : undefined}
               type={item.type}
               key={item.title}
               title={item.title}
