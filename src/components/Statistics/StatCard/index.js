@@ -43,8 +43,16 @@ const StatCard = (props) => {
             </AreaChart>
           ) : (
             <BarChart width={500} height={400} data={props.data} barSize={50}>
-              <XAxis dataKey={props.xAsis} />
-              <YAxis dataKey={props.yAsis} />
+              <XAxis
+                dataKey={props.xAsis}
+                tickFormatter={(val) =>
+                  val.length > 6 ? val.slice(0, 6) + '...' : val
+                }
+              />
+              <YAxis
+                dataKey={props.yAsis}
+                domain={[0, props.maxHeight ? props.maxHeight : 'dataMax']}
+              />
               <Tooltip
                 cursor={{ fill: 'rgba(56,56,56,0.32)' }}
                 contentStyle={{ color: '#8884d8' }}
@@ -53,9 +61,10 @@ const StatCard = (props) => {
               <CartesianGrid strokeDasharray="3 3" />
               <Bar
                 dataKey={props.yAsis}
-                fill="#ffd93d"
+                fill="rgba(255, 217, 61, 0.6)"
                 background={false}
                 stroke="#8884d8"
+                he
               />
             </BarChart>
           )}

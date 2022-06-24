@@ -82,3 +82,23 @@ export const getMostPopularPlaces = async () => {
 
   return placesStat;
 };
+
+export const getTopRatedPlaces = async () => {
+  const placesStat = [];
+
+  const q = query(
+    collection(db, 'places'),
+    orderBy('rating.mark', 'desc'),
+    limit(5),
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((item) => {
+    placesStat.push(item.data());
+  });
+
+  return placesStat.map((item) => {
+    return { ...item, ratingMark: item.rating.mark };
+  });
+};
