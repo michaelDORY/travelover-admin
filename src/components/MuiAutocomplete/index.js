@@ -1,159 +1,75 @@
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import Autocomplete from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import parse from 'autosuggest-highlight/parse';
-import throttle from 'lodash/throttle';
-import * as React from 'react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import GooglePlacesAutocomplete, {
+  geocodeByPlaceId,
+} from 'react-google-places-autocomplete';
 
-function loadScript(src, position, id) {
-  if (!position) {
-    return;
-  }
-
-  const script = document.createElement('script');
-  script.setAttribute('async', '');
-  script.setAttribute('id', id);
-  script.src = src;
-  position.appendChild(script);
-}
-
-const autocompleteService = { current: null };
-
-export default function MuiAutocomplete(props) {
-  const [inputValue, setInputValue] = useState('');
-  const [options, setOptions] = useState([]);
-  const loaded = useRef(false);
-  const value = !props.value.description ? null : props.value;
-
-  if (typeof window !== 'undefined' && !loaded.current) {
-    if (!document.querySelector('#google-maps')) {
-      loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places&language=en`,
-        document.querySelector('head'),
-        'google-maps',
-      );
-    }
-
-    loaded.current = true;
-  }
-
-  const fetch = useMemo(
-    () =>
-      throttle((request, callback) => {
-        autocompleteService.current
-          .getPlacePredictions(request, callback)
-          .then();
-      }, 200),
-    [],
+const MuiAutocomplete = (props) => {
+  const [value, setValue] = useState(
+    JSON.stringify(props.value) !== '{}' ? props.value : null,
   );
-
   useEffect(() => {
-    let active = true;
-
-    if (!autocompleteService.current && window.google) {
-      autocompleteService.current =
-        new window.google.maps.places.AutocompleteService();
+    if (value) {
+      geocodeByPlaceId(value.value.place_id)
+        .then((results) => {
+          props.formik.setFieldValue('address', {
+            description: value.label,
+            location: {
+              lat: results[0].geometry.location.lat(),
+              lng: results[0].geometry.location.lng(),
+            },
+          });
+        })
+        .catch(() => null);
     }
-    if (!autocompleteService.current) {
-      return undefined;
-    }
-
-    if (inputValue === '') {
-      setOptions(value ? [value] : []);
-      return undefined;
-    }
-
-    fetch({ input: inputValue }, (results) => {
-      if (active) {
-        let newOptions = [];
-
-        if (value) {
-          newOptions = [value];
-        }
-
-        if (results) {
-          newOptions = [...newOptions, ...results];
-        }
-
-        setOptions(newOptions);
-      }
-    });
-
-    return () => {
-      active = false;
-    };
-  }, [value, inputValue, fetch]);
-
+  }, [value]);
   return (
-    <Autocomplete
-      id="google-map-demo"
-      fullWidth
-      getOptionLabel={(option) =>
-        typeof option === 'string' ? option : option.description
-      }
-      filterOptions={(x) => x}
-      options={options}
-      autoComplete
-      includeInputInList
-      filterSelectedOptions
-      value={value}
-      onChange={(event, newValue) => {
-        setOptions(newValue ? [newValue, ...options] : options);
-        props.formik.setFieldValue('address', newValue);
-      }}
-      onInputChange={(event, newInputValue) => {
-        setInputValue(newInputValue);
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label={props.label}
-          fullWidth
-          error={props.error}
-          helperText={props.helperText}
-        />
-      )}
-      renderOption={(props, option) => {
-        const matches =
-          option.structured_formatting.main_text_matched_substrings;
-        const parts = parse(
-          option.structured_formatting.main_text,
-          matches.map((match) => [match.offset, match.offset + match.length]),
-        );
-
-        return (
-          <li {...props}>
-            <Grid container alignItems="center">
-              <Grid item>
-                <Box
-                  component={LocationOnIcon}
-                  sx={{ color: 'text.secondary', mr: 2 }}
-                />
-              </Grid>
-              <Grid item xs>
-                {parts.map((part, index) => (
-                  <span
-                    key={index}
-                    style={{
-                      fontWeight: part.highlight ? 700 : 400,
-                    }}
-                  >
-                    {part.text}
-                  </span>
-                ))}
-
-                <Typography variant="body2" color="text.secondary">
-                  {option.structured_formatting.secondary_text}
-                </Typography>
-              </Grid>
-            </Grid>
-          </li>
-        );
-      }}
-    />
+    <div>
+      <GooglePlacesAutocomplete
+        apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+        apiOptions={{
+          language: 'en',
+          libraries: ['places', 'geometry'],
+        }}
+        selectProps={{
+          theme: (theme) => ({
+            ...theme,
+            borderRadius: '5px',
+            colors: {
+              ...theme.colors,
+              primary25: 'neutral20',
+              primary: 'neutral20',
+            },
+          }),
+          placeholder: props.placeholder,
+          value: value,
+          onChange: setValue,
+          styles: {
+            menu: (provided) => ({
+              ...provided,
+              background: 'rgb(91,91,91)',
+              zIndex: 100000,
+            }),
+            input: (provided) => ({
+              ...provided,
+              color: 'white',
+            }),
+            singleValue: (provided) => ({
+              ...provided,
+              color: 'white',
+            }),
+            control: (provided) => ({
+              ...provided,
+              background: 'transparent',
+              borderColor: 'rgba(255, 255, 255, 0.3)',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+              color: 'white',
+            }),
+          },
+        }}
+      />
+    </div>
   );
-}
+};
+
+export default MuiAutocomplete;

@@ -70,6 +70,7 @@ function AddPlace() {
       try {
         const imageId = await uploadImageToStorage(values.image);
         await setDoc(doc(db, 'places', imageId), { ...values, image: imageId });
+        await formik.setFieldValue('address', {});
         formik.resetForm();
         setPreview('');
         setAlert({
@@ -215,7 +216,6 @@ function AddPlace() {
             </Grid>
             <Grid item lg={12} md={12} sm={12}>
               <MuiAutocomplete
-                label="City, address of place"
                 formik={formik}
                 value={formik.values.address}
                 error={formik.touched.address && Boolean(formik.errors.address)}
