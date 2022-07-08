@@ -4,6 +4,14 @@
 
 <hr>
 
+<h2>Site <a href="https://travelover-admin.vercel.app/">https://travelover-admin.vercel.app/</a></h2>
+
+<center>
+    <a href="https://travelover-admin.vercel.app/">
+        <img height="150px" src="https://drive.google.com/uc?export=view&id=17NnHzXEYTZ9i0Hf-SFAIaWoWX22OdXqM" title="Click" />
+    </a>
+</center>
+
 <h2> Authors </h2>
 <ul>
     <li><a href="https://github.com/michaelDORY">@michaelDORY</a>&#128526;</li>
@@ -32,16 +40,6 @@
     <li>Statistics</li>
     <li>Managing comments</li>
 </ul>
-
-<hr>
-
-<h2>Installation</h2>
-
-<center>
-    <a href="https://travelover-admin.vercel.app/">
-        <img height="150px" src="https://drive.google.com/uc?export=view&id=17NnHzXEYTZ9i0Hf-SFAIaWoWX22OdXqM" title="Click" />
-    </a>
-</center>
 
 <hr>
 
